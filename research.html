@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>張証荃 - 研究報告</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50">
+    <!-- 導航欄 -->
+    <nav class="fixed w-full z-10 transition-all py-3 bg-transparent">
+        <div class="container mx-auto flex justify-between items-center px-4">
+            <a href="index.html" class="text-xl font-bold text-blue-600 flex items-center">
+                <span class="bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center mr-2">JC</span>
+                <span class="hidden sm:inline-block">張証荃</span>
+            </a>
+            
+            <!-- 電腦版選單 -->
+            <div class="hidden md:flex space-x-1">
+                <a href="index.html" class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-500 hover:bg-blue-50 transition-all">回到首頁</a>
+                <a href="#research-list" class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-500 hover:bg-blue-50 transition-all">研究列表</a>
+                <a href="#publications" class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-500 hover:bg-blue-50 transition-all">出版著作</a>
+                <a href="#projects" class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-500 hover:bg-blue-50 transition-all">專案成果</a>
+            </div>
+            
+            <!-- 行動版選單按鈕 -->
+            <button id="menu-button" class="md:hidden flex items-center justify-center w-10 h-10 rounded-md bg-blue-50 text-blue-600 hover:bg-blue-100 transition-all">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+            
+            <!-- 列印按鈕 -->
+            <button id="print-button" class="hidden md:flex items-center px-4 py-2 bg-blue-500 text-white rounded-md shadow hover:bg-blue-600 transition-all ml-2">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path>
+                </svg>
+                列印報告
+            </button>
+        </div>
+    </nav>
+    
+    <!-- 行動版選單 -->
+    <div id="mobile-menu" class="fixed top-0 left-0 w-full h-full bg-white z-20 transform transition-all duration-300 hidden">
+        <div class="flex justify-between items-center p-4 border-b">
+            <span class="text-xl font-bold text-blue-600 flex items-center">
+                <span class="bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center mr-2">JC</span>
+                張証荃 - 研究報告
+            </span>
+            <button id="close-menu" class="flex items-center justify-center w-10 h-10 rounded-md bg-gray-100 text-gray-500 hover:bg-gray-200 transition-all">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+        <div class="flex flex-col p-4">
+            <a href="index.html" class="flex items-center px-4 py-3 rounded-md text-gray-600 hover:text-blue-500 hover:bg-blue-50 transition-all">
+                <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                </svg>
+                回到首頁
+            </a>
+            <a href="#research-list" class="flex items-center px-4 py-3 rounded-md text-gray-600 hover:text-blue-500 hover:bg-blue-50 transition-all">
+                <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                </svg>
+                研究列表
+            </a>
+            <a href="#publications" class="flex items-center px-4 py-3 rounded-md text-gray-600 hover:text-blue-500 hover:bg-blue-50 transition-all">
+                <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                </svg>
+                出版著作
+            </a>
+            <a href="#projects" class="flex items-center px-4 py-3 rounded-md text-gray-600 hover:text-blue-500 hover:bg-blue-50 transition-all">
+                <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"></path>
+                </svg>
+                專案成果
+            </a>
+            <button id="mobile-print-button" class="flex items-center justify-center px-4 py-3 mt-4 bg-blue-500 text-white rounded-md shadow hover:bg-blue-600 transition-all">
+                <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path>
+                </svg>
+                列印報告
+            </button>
+        </div>
+    </div>
+    
+    <!-- 主要內容 -->
+    <main class="container mx-auto px-4 pt-32 pb-20">
+        <!-- 標題 -->
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-bold mb-2">研究報告與學術成果</h1>
+            <p class="text-xl text-blue-600 mb-4">✨ 光電與半導體產業研究 ✨</p>
+            <p class="text-lg text-gray-600">專業論文、技術報告與創新專案</p>
+        </div>
+        
+        <hr class="my-12 border-gray-200">
+        
+        <!-- 研究列表 -->
+        <section id="research-list" class="mb-16">
+            <h2 class="text-2xl font-bold mb-6 pb-2 border-b-2 border-blue-100 flex items-center">
+                <svg class="w-6 h-6 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                </svg>
+                📑 研究報告列表
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- 研究報告項目 1 -->
+                <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+                    <h3 class="text-xl font-bold text-blue-600 mb-3">光電產業供應鏈分析研究</h3>
+                    <p class="text-gray-700 mb-4">本研究針對全球光電產業供應鏈進行深入分析，特別聚焦於亞太地區的製造基地轉移趨勢及其對產業結構的影響。</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-gray-500">2022年5月</span>
+                        <a href="#" class="px-4 py-2 bg-blue-100 text-blue-600 rounded-md hover:bg-blue-200 transition-all">查看詳情</a>
+                    </div>
+                </div>
+                
+                <!-- 研究報告項目 2 -->
+                <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+                    <h3 class="text-xl font-bold text-blue-600 mb-3">半導體製程技術發展趨勢</h3>
+                    <p class="text-gray-700 mb-4">探討先進半導體製程技術的發展方向、挑戰與機遇，包含7nm以下製程、EUV光刻技術及其對產業競爭格局的影響。</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-gray-500">2021年11月</span>
+                        <a href="#" class="px-4 py-2 bg-blue-100 text-blue-600 rounded-md hover:bg-blue-200 transition-all">查看詳情</a>
+                    </div>
+                </div>
+                
+                <!-- 研究報告項目 3 -->
+                <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+                    <h3 class="text-xl font-bold text-blue-600 mb-3">可穿戴裝置市場與技術評估</h3>
+                    <p class="text-gray-700 mb-4">針對可穿戴裝置市場進行全面評估，分析微型顯示器、感測器與電池技術的整合應用，並預測未來五年市場發展方向。</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-gray-500">2020年8月</span>
+                        <a href="#" class="px-4 py-2 bg-blue-100 text-blue-600 rounded-md hover:bg-blue-200 transition-all">查看詳情</a>
+                    </div>
+                </div>
+                
+                <!-- 研究報告項目 4 -->
+                <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+                    <h3 class="text-xl font-bold text-blue-600 mb-3">智慧製造在半導體產業的應用</h3>
+                    <p class="text-gray-700 mb-4">研究Industry 4.0與智慧製造技術在半導體產業的實施案例、投資回報分析及未來發展藍圖，含AI、IoT與大數據應用。</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-gray-500">2019年12月</span>
+                        <a href="#" class="px-4 py-2 bg-blue-100 text-blue-600 rounded-md hover:bg-blue-200 transition-all">查看詳情</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 出版著作 -->
+        <section id="publications" class="mb-16">
+            <h2 class="text-2xl font-bold mb-6 pb-2 border-b-2 border-blue-100 flex items-center">
+                <svg class="w-6 h-6 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                </svg>
+                📚 學術出版著作
+            </h2>
+            
+            <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 mb-6">
+                <div class="space-y-4">
+                    <!-- 出版著作項目 1 -->
+                    <div class="pb-4 border-b border-gray-100">
+                        <h3 class="text-lg font-semibold text-blue-600">全球半導體產業發展策略與競爭分析</h3>
+                        <p class="text-sm text-gray-500">發表於《科技管理期刊》，第45卷，第3期，2022年</p>
+                        <p class="text-gray-700 mt-2">本論文探討全球半導體產業的競爭格局變化，分析台灣、韓國、美國與中國大陸在製造與設計領域的策略布局與政策影響。</p>
+                    </div>
+                    
+                    <!-- 出版著作項目 2 -->
+                    <div class="pb-4 border-b border-gray-100">
+                        <h3 class="text-lg font-semibold text-blue-600">新興顯示技術商業化路徑研究</h3>
+                        <p class="text-sm text-gray-500">發表於《光電工程學報》，第37卷，第2期，2021年</p>
+                        <p class="text-gray-700 mt-2">分析Micro LED、量子點與柔性OLED等新興顯示技術從實驗室到量產的商業化路徑，並評估各技術未來五年的市場潛力。</p>
+                    </div>
+                    
+                    <!-- 出版著作項目 3 -->
+                    <div class="pb-4 border-b border-gray-100">
+                        <h3 class="text-lg font-semibold text-blue-600">製造業數位轉型之關鍵成功因素</h3>
+                        <p class="text-sm text-gray-500">發表於《管理評論》，第40卷，第1期，2020年</p>
+                        <p class="text-gray-700 mt-2">通過多案例研究法，探討台灣製造業數位轉型的關鍵成功因素，提出適合亞洲企業文化特性的轉型框架與實施路徑。</p>
+                    </div>
+                    
+                    <!-- 出版著作項目 4 -->
+                    <div>
+                        <h3 class="text-lg font-semibold text-blue-600">高科技產業人才管理與留任策略</h3>
+                        <p class="text-sm text-gray-500">合著《高科技企業管理》專書，商業出版社，2019年</p>
+                        <p class="text-gray-700 mt-2">針對高科技產業人才管理的特殊性，提出結合亞洲文化特質與全球化趨勢的人才招募、培育與留任策略。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 專案成果 -->
+        <section id="projects" class="mb-16">
+            <h2 class="text-2xl font-bold mb-6 pb-2 border-b-2 border-blue-100 flex items-center">
+                <svg class="w-6 h-6 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"></path>
+                </svg>
+                🔬 專案研究成果
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- 專案成果項目 1 -->
+                <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+                    <div class="h-40 bg-blue-100 rounded-md mb-4 flex items-center justify-center">
+                        <svg class="w-16 h-16 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-blue-600 mb-2">高效率LED封裝技術研發</h3>
+                    <p class="text-gray-700 mb-4">開發新型LED封裝技術，提升光萃取效率15%，並降低封裝成本20%，已申請3項國際專利。</p>
+                    <span class="text-sm text-gray-500">2021-2022</span>
+                </div>
+                
+                <!-- 專案成果項目 2 -->
+                <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+                    <div class="h-40 bg-blue-100 rounded-md mb-4 flex items-center justify-center">
+                        <svg class="w-16 h-16 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-blue-600 mb-2">半導體製程優化研究</h3>
+                    <p class="text-gray-700 mb-4">針對12吋晶圓廠的製程流程進行優化，結合AI演算法提升產能8%，減少能源消耗12%。</p>
+                    <span class="text-sm text-gray-500">2019-2020</span>
+                </div>
+                
+                <!-- 專案成果項目 3 -->
+                <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+                    <div class="h-40 bg-blue-100 rounded-md mb-4 flex items-center justify-center">
+                        <svg class="w-16 h-16 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-blue-600 mb-2">新型光電材料特性研究</h3>
+                    <p class="text-gray-700 mb-4">研發環保型量子點材料，降低重金屬含量，提高穩定性與色彩表現，適用於下一代顯示器應用。</p>
+                    <span class="text-sm text-gray-500">2018-2019</span>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- 頁腳 -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <h3 class="text-xl font-bold mb-2">張証荃 (James Chang)</h3>
+                    <p class="text-gray-400">資深光電與半導體產業經營管理專家</p>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="index.html" class="text-gray-300 hover:text-white">首頁</a>
+                    <a href="#research-list" class="text-gray-300 hover:text-white">研究報告</a>
+                    <a href="#publications" class="text-gray-300 hover:text-white">出版著作</a>
+                    <a href="#projects" class="text-gray-300 hover:text-white">專案成果</a>
+                </div>
+            </div>
+            <hr class="my-6 border-gray-700">
+            <p class="text-center text-gray-400">© 2023 張証荃 版權所有</p>
+        </div>
+    </footer>
+    
+    <script>
+        // 行動版選單控制
+        document.getElementById('menu-button').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.remove('hidden');
+        });
+        
+        document.getElementById('close-menu').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.add('hidden');
+        });
+        
+        // 平滑滾動
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.getElementById('mobile-menu').classList.add('hidden');
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // 導航欄背景控制
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('bg-white', 'shadow');
+                nav.classList.remove('bg-transparent');
+            } else {
+                nav.classList.remove('bg-white', 'shadow');
+                nav.classList.add('bg-transparent');
+            }
+        });
+        
+        // 列印功能
+        document.getElementById('print-button').addEventListener('click', function() {
+            window.print();
+        });
+        
+        document.getElementById('mobile-print-button').addEventListener('click', function() {
+            window.print();
+        });
+    </script>
+</body>
+</html>
