@@ -1,0 +1,1411 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-TW" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MicroOLED在AR/VR產業的深度洞察報告 (V2.1)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap');
+
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+
+        /* Tooltip Styles */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            border-bottom: 1px dotted #60a5fa; /* Tailwind blue-400 */
+            cursor: help;
+            color: #2563eb; /* Tailwind blue-600 */
+            font-weight: 500;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 280px;
+            background-color: rgba(17, 24, 39, 0.9); /* Tailwind gray-900 with opacity */
+            color: #fff;
+            text-align: left;
+            border-radius: 6px;
+            padding: 10px 12px;
+            position: absolute;
+            z-index: 10;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -140px; /* Center the tooltip */
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+            font-size: 0.875rem; /* Tailwind text-sm */
+            line-height: 1.4;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        .tooltip .tooltiptext::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: rgba(17, 24, 39, 0.9) transparent transparent transparent;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Collapsible Styles */
+        .collapsible-header {
+            cursor: pointer;
+            transition: background-color 0.3s;
+            border-radius: 0.5rem; /* Tailwind rounded-lg */
+        }
+
+        .collapsible-header:hover {
+            background-color: #f3f4f6; /* Tailwind gray-100 */
+        }
+
+        .collapsible-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out, padding 0.5s ease-out;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+
+        .collapsible-content.active {
+            max-height: 10000px; /* Adjust as needed, ensure it's large enough */
+            padding-top: 1rem; /* Tailwind pt-4 */
+            padding-bottom: 1rem; /* Tailwind pb-4 */
+        }
+
+        /* Basic Table Styling */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid #e5e7eb; /* Tailwind gray-200 */
+            padding: 0.75rem 1rem; /* Tailwind p-3 px-4 */
+            text-align: left;
+        }
+
+        th {
+            background-color: #f9fafb; /* Tailwind gray-50 */
+            font-weight: 600; /* Tailwind font-semibold */
+        }
+
+        /* Responsive Tables */
+        .table-container {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+        }
+
+        /* Image Styling */
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 0.375rem; /* Tailwind rounded-md */
+            margin-top: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Section Styling */
+        section {
+            margin-bottom: 3rem; /* Tailwind mb-12 */
+            scroll-margin-top: 4rem; /* Offset for sticky nav */
+        }
+
+        /* Header/Nav Styling */
+        header {
+            background: linear-gradient(to right, #1e3a8a, #312e81); /* Tailwind blue-800 to indigo-900 */
+        }
+        
+        nav {
+          backdrop-filter: blur(8px);
+          background-color: rgba(255, 255, 255, 0.85);
+        }
+
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 antialiased">
+    <header class="text-white py-10 px-4 shadow-lg mb-6">
+        <div class="container mx-auto max-w-6xl">
+            <h1 class="text-3xl md:text-4xl font-bold mb-3 leading-tight">MicroOLED 深度解析：引領 AR/VR 顯示技術新浪潮 🚀</h1>
+            <p class="text-lg md:text-xl opacity-90">一份全面探討 MicroOLED 技術、市場趨勢與產業生態的洞察報告 (V2.1)</p>
+        </div>
+    </header>
+
+    <nav class="sticky top-0 z-50 shadow-md">
+        <div class="container mx-auto max-w-6xl px-4 py-3">
+            <div class="flex flex-wrap justify-between items-center">
+                <div class="text-lg font-medium text-gray-700">📑 版本：V2.1 (2023/11)</div>
+                <div class="flex flex-wrap space-x-3 text-sm mt-2 sm:mt-0">
+                    <a href="#intro" class="py-1 px-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded transition duration-150">核心需求</a>
+                    <a href="#displays" class="py-1 px-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded transition duration-150">顯示技術</a>
+                    <a href="#history" class="py-1 px-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded transition duration-150">發展歷程</a>
+                    <a href="#future" class="py-1 px-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded transition duration-150">未來預測</a>
+                    <a href="#industry" class="py-1 px-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded transition duration-150">產業鏈</a>
+                    <a href="#companies" class="py-1 px-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded transition duration-150">核心廠商</a>
+                    <a href="#conclusion" class="py-1 px-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded transition duration-150">總結</a>
+                    <a href="index.html" class="py-1 px-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded transition duration-150">回到首頁</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto max-w-6xl px-4 py-8">
+
+        <!-- 版本資訊 -->
+        <section id="version-history" class="bg-white rounded-lg shadow p-6">
+            <div class="collapsible-section">
+                 <div class="collapsible-header p-3 flex justify-between items-center">
+                    <h2 class="text-2xl font-semibold text-gray-700 flex items-center"><span class="text-3xl mr-3">📝</span>版本演進說明</h2>
+                    <svg class="w-6 h-6 transform transition-transform text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </div>
+                <div class="collapsible-content">
+                    <div class="table-container mt-4">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>版本</th>
+                                    <th>發布時間</th>
+                                    <th>主要更新內容</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="font-medium">V1.0</td>
+                                    <td>2023年2月</td>
+                                    <td>報告初版發布 ✨</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-medium">V2.0</td>
+                                    <td>2023年7月</td>
+                                    <td class="text-sm">
+                                        <ol class="list-decimal pl-4 space-y-1">
+                                            <li>修正 V1 版本中的錯誤 (Bug Fixes)</li>
+                                            <li>新增 Apple <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 螢幕規格參數</li>
+                                            <li>更新部分企業名稱 (例如 Nreal 更名為 Xreal)</li>
+                                            <li>供應鏈全圖新增部分企業</li>
+                                            <li>增加 <span class="tooltip">PPD<span class="tooltiptext">Pixels Per Degree (每度像素數)，衡量顯示銳利度的指標，代表人眼在一度視角內能分辨多少像素。60 PPD 被認為是接近人眼極限。</span></span> 示意圖及體驗對比說明</li>
+                                            <li>補充京東方 (BOE) 與視涯科技 (Seeya) 的產品進展</li>
+                                        </ol>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="font-medium">V2.1</td>
+                                    <td>2023年11月</td>
+                                    <td class="text-sm">
+                                        <ol class="list-decimal pl-4 space-y-1">
+                                            <li>更新產業鏈全圖：在背板與螢幕面板部分加入「昀光科技 (Lumicore)」</li>
+                                            <li>產業鏈全圖中合併「清越科技」與「夢顯電子」</li>
+                                            <li>增加「熙泰科技 (Sidtek)」產品介紹</li>
+                                            <li>更新 2024~2025 年預計搭載 <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 的 <span class="tooltip">VR<span class="tooltiptext">Virtual Reality (虛擬實境)，利用電腦技術創造一個模擬環境，讓使用者感覺身歷其境，通常需要配戴頭戴式顯示器。</span></span> 產品品牌</li>
+                                            <li>補充「清越科技」、「熙泰科技」及德國「Fraunhofer FEP」的產品介紹</li>
+                                        </ol>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 目錄 (可選，若頁面長可加入) -->
+        <!--
+        <section id="toc" class="bg-white rounded-lg shadow p-6"> ... </section>
+        -->
+
+        <!-- 正文開始 -->
+        <article class="space-y-12">
+
+            <!-- 一、核心需求與技術 -->
+            <section id="intro" class="bg-white rounded-lg shadow p-6">
+                <h2 class="text-2xl font-semibold text-gray-700 mb-6 border-l-4 border-blue-600 pl-4">一、AR/VR 的核心需求與關鍵技術 💡</h2>
+
+                <div class="mb-8 p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg">
+                    <h3 class="text-xl font-semibold mb-3 text-blue-800">人感知世界 + 世界感知人 = <span class="tooltip">XR<span class="tooltiptext">Extended Reality (延展實境)，是一個涵蓋所有沉浸式技術的總稱，包括 VR (虛擬實境)、AR (擴增實境) 和 MR (混合實境)。</span></span></h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <figure class="text-center">
+                            <img src="https://cdn-mineru.openxlab.org.cn/extract/db2eacda-b623-49a3-8002-6d5df21e7a7a/2a4723a1c19be4312ac23dcb70b6f174166a6ada73df2e11a7770840fbdac7df.jpg" alt="人感知世界示意圖">
+                            <figcaption class="text-sm text-gray-600 mt-1">圖：人感知世界</figcaption>
+                        </figure>
+                        <figure class="text-center">
+                            <img src="https://cdn-mineru.openxlab.org.cn/extract/db2eacda-b623-49a3-8002-6d5df21e7a7a/c90fd5ee7bdd5540aec7646eddf87cf51eba98e79fde0804d55e357fbc90996c.jpg" alt="世界感知人示意圖">
+                            <figcaption class="text-sm text-gray-600 mt-1">圖：世界感知人</figcaption>
+                        </figure>
+                    </div>
+                </div>
+
+                <div class="collapsible-section mb-8">
+                    <div class="collapsible-header p-3 flex justify-between items-center bg-gray-50">
+                        <h3 class="text-xl font-semibold text-gray-700">視覺體驗：驅動 <span class="tooltip">AR<span class="tooltiptext">Augmented Reality (擴增實境)，將數位資訊疊加到真實世界畫面的技術，使用者仍能看到周遭環境。</span></span>/<span class="tooltip">VR<span class="tooltiptext">Virtual Reality (虛擬實境)，利用電腦技術創造一個模擬環境，讓使用者感覺身歷其境，通常需要配戴頭戴式顯示器。</span></span> 產品升級的核心引擎 🚀</h3>
+                        <svg class="w-6 h-6 transform transition-transform text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="collapsible-content p-4 bg-gray-50 rounded-b-lg">
+                        <p class="mb-4">人類透過感官認知世界，而視覺是最主要的資訊來源。在 <span class="tooltip">XR<span class="tooltiptext">Extended Reality (延展實境)，是一個涵蓋所有沉浸式技術的總稱，包括 VR (虛擬實境)、AR (擴增實境) 和 MR (混合實境)。</span></span> 體驗中，視覺的擬真度、清晰度和沉浸感，直接決定了使用者的滿意度和產品的競爭力。</p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                             <figure class="text-center">
+                                <img src="https://cdn-mineru.openxlab.org.cn/extract/db2eacda-b623-49a3-8002-6d5df21e7a7a/4fbf43b5729fcda7fab789ec55cafaff0c7375e10a84293aa4627182d948eb26.jpg" alt="人感知世界">
+                                <figcaption class="text-sm text-gray-600 mt-1">圖：人感知世界</figcaption>
+                            </figure>
+                            <figure class="text-center">
+                                <img src="https://cdn-mineru.openxlab.org.cn/extract/db2eacda-b623-49a3-8002-6d5df21e7a7a/01ccc5059d25810d5a20e8c70ab13516b2a84f1a3632987db93b3e6da83df172.jpg" alt="世界感知人">
+                                <figcaption class="text-sm text-gray-600 mt-1">圖：世界感知人</figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h3 class="text-xl font-semibold mb-3 text-gray-700">Apple Vision Pro 的關鍵元件：<span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 螢幕面板 💎</h3>
+                    <p class="mb-4">Apple 首款空間運算設備 Vision Pro 已於 2023 年 Q3 量產。根據拆解分析 (<span class="tooltip">BOM<span class="tooltiptext">Bill of Materials (物料清單)，指產品製造所需的全部零組件、原材料、子組件等的詳細清單。</span></span> 分析)，與視覺相關的元件佔據了高達 57% 的物料成本，其中 <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 螢幕面板更是價值量最高的單一零件。</p>
+                    <figure class="text-center bg-gray-50 p-4 rounded-lg">
+                        <img src="https://cdn-mineru.openxlab.org.cn/extract/db2eacda-b623-49a3-8002-6d5df21e7a7a/ddde981e494632fa9b38d7eda702956bf5c4c8806e916664fb70d61e7184f95a.jpg" alt="蘋果VisionPro BOM 價值量占比圖">
+                        <figcaption class="text-sm text-gray-600 mt-2">圖：Apple Vision Pro 物料清單 (BOM) 價值量佔比</figcaption>
+                    </figure>
+                </div>
+
+                <div class="collapsible-section mb-8">
+                     <div class="collapsible-header p-3 flex justify-between items-center bg-gray-50">
+                        <h3 class="text-xl font-semibold text-gray-700">人類三大核心視覺需求：大、清、真 👀</h3>
+                         <svg class="w-6 h-6 transform transition-transform text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="collapsible-content p-4 bg-gray-50 rounded-b-lg">
+                        <div class="bg-blue-50 p-4 rounded-lg shadow-inner">
+                            <ol class="list-decimal pl-5 space-y-2 text-base">
+                                <li><strong class="text-blue-700">夠寬廣 (大視場)：</strong> 理想狀態需達到接近人眼自然的 <strong class="font-semibold">120° (水平) × 135° (垂直)</strong> 雙目立體視場。</li>
+                                <li><strong class="text-blue-700">夠清晰 (高解析)：</strong> 至少需達到 <strong class="font-semibold">60 <span class="tooltip">PPD<span class="tooltiptext">Pixels Per Degree (每度像素數)，衡量顯示銳利度的指標，代表人眼在一度視角內能分辨多少像素。60 PPD 被認為是接近人眼極限。</span></span></strong>，才能讓虛擬影像看不出像素顆粒感，媲美真實世界。</li>
+                                <li><strong class="text-blue-700">夠真實 (沉浸感)：</strong> 透過<strong class="font-semibold">雙眼輸入</strong>不同的畫面，創造立體視覺，提升深度感知與真實感。</li>
+                            </ol>
+                        </div>
+
+                        <div class="mt-6">
+                            <h4 class="text-lg font-semibold mb-2 text-gray-600">深入了解人眼視場角 (Field of View, FOV)</h4>
+                            <p class="mb-3">人眼視場角，也稱為「視度」，指的是我們眼睛不轉動時能看到的角度範圍。這個範圍可以區分為：</p>
+                            <ul class="list-disc pl-5 space-y-1 mb-4 text-sm">
+                                <li><strong class="font-medium">方向：</strong> 水平視場角 (左右範圍) 與 垂直視場角 (上下範圍)。</li>
+                                <li><strong class="font-medium">單/雙眼：</strong> 左眼、右眼各自看到的範圍，以及雙眼共同看到的範圍。</li>
+                            </ul>
+                            <figure class="text-center mb-4">
+                                <img src="https://cdn-mineru.openxlab.org.cn/extract/db2eacda-b623-49a3-8002-6d5df21e7a7a/c82d248cf927db3718e0c1f6d42fed2f0de571be17003f9ad45a5192114e1d81.jpg" alt="人眼視場角示意圖">
+                                <figcaption class="text-sm text-gray-500 mt-1">圖：人眼視角示意 (來源: Shutterstock)</figcaption>
+                            </figure>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-center mb-4">
+                                <figure class="text-center">
+                                     <img src="https://cdn-mineru.openxlab.org.cn/extract/db2eacda-b623-49a3-8002-6d5df21e7a7a/1363254167473de6ecc32866f5433569b4f90200cfec39a8bac81505a6279603.jpg" alt="單眼視場範圍示意圖">
+                                     <figcaption class="text-sm text-gray-500 mt-1">圖：單目視場範圍 (右眼) (來源: Ruch & Fulton, 1960)</figcaption>
+                                </figure>
+                                <div class="bg-white p-4 rounded-lg border border-gray-200 text-sm">
+                                    <p class="font-semibold mb-2">人眼視場角的關鍵數值：</p>
+                                    <ul class="list-disc pl-5 space-y-1">
+                                        <li>單眼視場：約 <strong class="font-medium">160° (水平) × 135° (垂直)</strong></li>
+                                        <li>雙眼完整視場 (總範圍)：約 <strong class="font-medium">200° (水平) × 135° (垂直)</strong></li>
+                                        <li>雙眼立體視場 (能感知深度的重疊區域)：約 <strong class="font-medium">120° (水平) × 135° (垂直)</strong> <span class="text-blue-600 font-semibold">&larr; 這是XR追求的目標</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                             <figure class="text-center grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <img src="https://cdn-mineru.openxlab.org.cn/extract/db2eacda-b623-49a3-8002-6d5df21e7a7a/45d5f51bb9e161ef5ff7a106ecee8b40c9266072496005fe91161c51617b8295.jpg" alt="雙眼視場範圍示意圖 1">
+                                <img src="https://cdn-mineru.openxlab.org.cn/extract/db2eacda-b623-49a3-8002-6d5df21e7a7a/0c9ab4fa2cc8f95cb2fe2d2e51f446eb043199dcc331f3a54d34e1c0b1627b41.jpg" alt="雙眼視場範圍示意圖 2">
+                                <figcaption class="md:col-span-2 text-sm text-gray-500 mt-1">圖：雙眼視場範圍示意</figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="collapsible-section mb-8">
+                     <div class="collapsible-header p-3 flex justify-between items-center bg-gray-50">
+                        <h3 class="text-xl font-semibold text-gray-700">計算理想 <span class="tooltip">XR<span class="tooltiptext">Extended Reality (延展實境)，是一個涵蓋所有沉浸式技術的總稱，包括 VR (虛擬實境)、AR (擴增實境) 和 MR (混合實境)。</span></span> 螢幕像素數 📐</h3>
+                        <svg class="w-6 h-6 transform transition-transform text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                     <div class="collapsible-content p-4 bg-gray-50 rounded-b-lg">
+                        <p class="mb-4">要達到媲美真實世界的視覺體驗，<span class="tooltip">XR<span class="tooltiptext">Extended Reality (延展實境)，是一個涵蓋所有沉浸式技術的總稱，包括 VR (虛擬實境)、AR (擴增實境) 和 MR (混合實境)。</span></span> 裝置需要提供多高的像素數量呢？我們可以根據人眼的視覺極限來推算：</p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                            <div class="bg-blue-50 p-4 rounded-lg">
+                                <h4 class="font-semibold text-blue-800 mb-2">基本條件</h4>
+                                <ul class="list-disc pl-5 space-y-1 text-sm">
+                                    <li><strong class="font-medium">視覺靈敏度極限：</strong> 人眼能分辨的最小視角約為 1 分角 (arcminute)，相當於 1/60 度。</li>
+                                    <li><strong class="font-medium"><span class="tooltip">PPD<span class="tooltiptext">Pixels Per Degree (每度像素數)，衡量顯示銳利度的指標，代表人眼在一度視角內能分辨多少像素。60 PPD 被認為是接近人眼極限。</span></span> 目標：</strong> 要達到無法分辨像素點的程度，每度視角需要 60 個像素 (<strong class="font-semibold">60 PPD</strong>)。</li>
+                                    <li><strong class="font-medium">目標視場角 (雙目立體)：</strong> 水平 <strong class="font-semibold">120°</strong>，垂直 <strong class="font-semibold">135°</strong>。</li>
+                                </ul>
+                            </div>
+                            <div class="bg-green-50 p-4 rounded-lg">
+                                <h4 class="font-semibold text-green-800 mb-2">計算過程</h4>
+                                <ol class="list-decimal pl-5 space-y-2 text-sm">
+                                    <li><strong class="font-medium">水平像素需求 (Nh)：</strong><br> 120 度 × 60 PPD = <strong class="font-semibold">7,200 像素</strong></li>
+                                    <li><strong class="font-medium">垂直像素需求 (Nv)：</strong><br> 135 度 × 60 PPD = <strong class="font-semibold">8,100 像素</strong></li>
+                                    <li><strong class="font-medium">單眼總像素：</strong><br> Nh × Nv = 7,200 × 8,100 = <strong class="font-semibold">58,320,000</strong> (約 58.3 M Pixels)</li>
+                                    <li><strong class="font-medium">雙眼總像素 (N)：</strong><br> 單眼 × 2 = 58.3 M × 2 = <strong class="font-semibold text-red-600">116,640,000</strong> (約 1.17 億像素)</li>
+                                </ol>
+                            </div>
+                        </div>
+                        <div class="bg-yellow-50 p-4 rounded-lg text-center">
+                            <p class="text-lg font-semibold text-yellow-800">結論：要完全滿足人眼的視覺需求，<span class="tooltip">XR<span class="tooltiptext">Extended Reality (延展實境)，是一個涵蓋所有沉浸式技術的總稱，包括 VR (虛擬實境)、AR (擴增實境) 和 MR (混合實境)。</span></span> 裝置需要提供接近 <strong class="text-red-600">1.17 億</strong> 的總像素！🤯</p>
+                            <figure class="mt-4">
+                                <img src="https://cdn-mineru.openxlab.org.cn/extract/db2eacda-b623-49a3-8002-6d5df21e7a7a/69df7ab2f1ab28c74efc96289f3e8c6b8c043055bdd940bf8c3ef62229d0f333.jpg" alt="理想像素計算示意圖">
+                            </figure>
+                        </div>
+                        <div class="bg-gray-100 p-4 rounded-lg mt-6">
+                             <h4 class="font-semibold text-gray-700 mb-2">與現有技術的差距</h4>
+                             <ul class="list-disc pl-5 space-y-1 text-sm">
+                                <li>標準 <strong class="font-medium">4K 顯示器</strong> (3840×2160) 約有 830 萬像素，僅達到理想需求的 <strong class="font-semibold text-red-600">~7%</strong>。</li>
+                                <li>高階 <strong class="font-medium">8K 顯示器</strong> (7680×4320) 約有 3,300 萬像素，也只達到理想需求的 <strong class="font-semibold text-red-600">~28%</strong>。</li>
+                             </ul>
+                             <p class="mt-3 text-sm text-gray-600">這凸顯了目前顯示技術與完美沉浸式體驗之間的巨大鴻溝，也是 <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 等高密度顯示技術如此重要的原因。</p>
+                        </div>
+                        <figure class="mt-6 text-center">
+                            <img src="https://cdn-mineru.openxlab.org.cn/extract/db2eacda-b623-49a3-8002-6d5df21e7a7a/ac3572de527c01cb8218dc281c3986a168ac125edd310f4ad6c03031d6523371.jpg" alt="視覺需求與理想屏幕對比圖">
+                            <figcaption class="text-sm text-gray-500 mt-1">圖：人類視覺需求 vs. 理想螢幕</figcaption>
+                        </figure>
+                    </div>
+                </div>
+
+                <div class="collapsible-section mb-8">
+                    <div class="collapsible-header p-3 flex justify-between items-center bg-gray-50">
+                        <h3 class="text-xl font-semibold text-gray-700">從手機到 <span class="tooltip">XR<span class="tooltiptext">Extended Reality (延展實境)，是一個涵蓋所有沉浸式技術的總稱，包括 VR (虛擬實境)、AR (擴增實境) 和 MR (混合實境)。</span></span>：解放視覺需求的技術演進 📱➡️👓</h3>
+                        <svg class="w-6 h-6 transform transition-transform text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="collapsible-content p-4 bg-gray-50 rounded-b-lg">
+                        <p class="mb-4">過去，手機螢幕的升級是驅動產業發展的主要動力。然而，受限於人類手掌的物理尺寸，手機螢幕大小已達瓶頸，無法再滿足日益增長的視覺體驗需求。</p>
+                         <figure class="text-center mb-6">
+                            <img src="https://cdn-mineru.openxlab.org.cn/extract/db2eacda-b623-49a3-8002-6d5df21e7a7a/096e0e84c6c3029c5e5dcd1ebe4348563dc183f62a21baeee8ef8dcd766aaf0d.jpg" alt="手機尺寸限制圖">
+                             <figcaption class="text-sm text-gray-500 mt-1">圖：手掌尺寸限制手機螢幕發展</figcaption>
+                        </figure>
+                        <p class="mb-4 font-semibold text-indigo-700">XR 的近眼顯示技術 (Near-Eye Display, NED) 打破了這個僵局！</p>
+                        <p class="mb-4">透過將微型顯示器放置在靠近眼睛的位置，並搭配光學系統放大影像，<span class="tooltip">XR<span class="tooltiptext">Extended Reality (延展實境)，是一個涵蓋所有沉浸式技術的總稱，包括 VR (虛擬實境)、AR (擴增實境) 和 MR (混合實境)。</span></span> 裝置可以在極小的體積內，提供遠超手機的視覺沉浸感和螢幕尺寸，成功解放了被壓抑的視覺需求。</p>
+                        <figure class="text-center mb-6">
+                            <img src="https://cdn-mineru.openxlab.org.cn/extract/db2eacda-b623-49a3-8002-6d5df21e7a7a/e31d5acefcfb7cc72142b6e3089ccd1590118e58b312f268b82290bc4d8354c1.jpg" alt="XR近眼顯示技術示意圖">
+                            <figcaption class="text-sm text-gray-500 mt-1">圖：XR 近眼顯示技術解放視覺需求</figcaption>
+                        </figure>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-center">
+                            <div class="bg-blue-100 p-4 rounded-lg">
+                                <p class="font-medium text-blue-800">視覺是<br>牽引 <span class="tooltip">AR<span class="tooltiptext">Augmented Reality (擴增實境)，將數位資訊疊加到真實世界畫面的技術，使用者仍能看到周遭環境。</span></span>/<span class="tooltip">VR<span class="tooltiptext">Virtual Reality (虛擬實境)，利用電腦技術創造一個模擬環境，讓使用者感覺身歷其境，通常需要配戴頭戴式顯示器。</span></span> 產品升級的核心需求</p>
+                            </div>
+                            <div class="bg-green-100 p-4 rounded-lg">
+                                 <p class="font-medium text-green-800">螢幕是<br>推動 <span class="tooltip">AR<span class="tooltiptext">Augmented Reality (擴增實境)，將數位資訊疊加到真實世界畫面的技術，使用者仍能看到周遭環境。</span></span>/<span class="tooltip">VR<span class="tooltiptext">Virtual Reality (虛擬實境)，利用電腦技術創造一個模擬環境，讓使用者感覺身歷其境，通常需要配戴頭戴式顯示器。</span></span> 產業發展的核心技術</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                 <div class="collapsible-section mb-8">
+                    <div class="collapsible-header p-3 flex justify-between items-center bg-gray-50">
+                        <h3 class="text-xl font-semibold text-gray-700"><span class="tooltip">XR<span class="tooltiptext">Extended Reality (延展實境)，是一個涵蓋所有沉浸式技術的總稱，包括 VR (虛擬實境)、AR (擴增實境) 和 MR (混合實境)。</span></span> 螢幕的升級主線：追求更高像素 & 更低功耗 📈</h3>
+                        <svg class="w-6 h-6 transform transition-transform text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="collapsible-content p-4 bg-gray-50 rounded-b-lg">
+                        <p class="mb-4">為了實現更逼真、更舒適的體驗，<span class="tooltip">XR<span class="tooltiptext">Extended Reality (延展實境)，是一個涵蓋所有沉浸式技術的總稱，包括 VR (虛擬實境)、AR (擴增實境) 和 MR (混合實境)。</span></span> 螢幕的發展主要圍繞兩大核心指標：</p>
+                        <ul class="list-disc pl-5 space-y-1 mb-4">
+                            <li><strong class="font-medium">像素密度 (<span class="tooltip">PPD<span class="tooltiptext">Pixels Per Degree (每度像素數)，衡量顯示銳利度的指標，代表人眼在一度視角內能分辨多少像素。60 PPD 被認為是接近人眼極限。</span></span> / <span class="tooltip">PPI<span class="tooltiptext">Pixels Per Inch (每英寸像素數)，衡量顯示器物理像素密度的指標，PPI 越高代表螢幕越精細。</span></span>)：</strong> 追求更高的解析度和像素密度，以達到或超越人眼極限 (60 PPD)，消除紗窗效應 (Screen-Door Effect)，提升畫面清晰度與真實感。</li>
+                            <li><strong class="font-medium">功耗：</strong> <span class="tooltip">XR<span class="tooltiptext">Extended Reality (延展實境)，是一個涵蓋所有沉浸式技術的總稱，包括 VR (虛擬實境)、AR (擴增實境) 和 MR (混合實境)。</span></span> 裝置通常需要電池供電，降低螢幕功耗對於延長續航力、減少發熱至關重要。</li>
+                        </ul>
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
+                            <div class="table-container">
+                                <p class="font-medium mb-2 text-center">主流 VR 裝置 PPD 演進趨勢</p>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>年份</th>
+                                            <th>代表產品 (部分)</th>
+                                            <th>單眼解析度 (約)</th>
+                                            <th>PPD (約)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td>2020年</td><td>Oculus Quest 2</td><td>1832x1920</td><td>~20</td></tr>
+                                        <tr><td>2022年</td><td>PICO 4</td><td>2160x2160</td><td>~21</td></tr>
+                                        <tr><td>2022年</td><td>Meta Quest Pro</td><td>1800x1920</td><td>~22</td></tr>
+                                        <tr><td>2023年</td><td>Apple Vision Pro</td><td>3648×3144</td><td>~34-40</td></tr>
+                                        <tr><td>2026~2027年 (預測)</td><td>下一代高階 VR</td><td>~5250x5700</td><td>≥50</td></tr>
+                                    </tbody>
+                                </table>
+                                <p class="text-xs text-gray-500 mt-1">* PPD 會受 FOV 影響，此處為估計值。</p>
+                            </div>
+                             <figure class="text-center">
+                                <img src="https://cdn-mineru.openxlab.org.cn/extract/db2eacda-b623-49a3-8002-6d5df21e7a7a/a1e86b3c5b6faff416cc7b1de5b5d967c9c9029f28fd79eaf15e3b40523995ef.jpg" alt="VR PPD發展趨勢圖">
+                                <figcaption class="text-sm text-gray-500 mt-1">圖：VR PPD 發展趨勢</figcaption>
+                            </figure>
+                        </div>
+                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+                             <figure class="text-center">
+                                <img src="https://cdn-mineru.openxlab.org.cn/extract/db2eacda-b623-49a3-8002-6d5df21e7a7a/688bb9d316d49025a2518553470120627ceb803c847a9575c19d0f8cca4a79c0.jpg" alt="不同PPD視覺效果對比圖">
+                                <figcaption class="text-sm text-gray-500 mt-1">圖：不同 PPD 視覺效果 (19/36/60 PPD)</figcaption>
+                            </figure>
+                             <figure class="text-center">
+                                <img src="https://cdn-mineru.openxlab.org.cn/extract/db2eacda-b623-49a3-8002-6d5df21e7a7a/c0087e7dc376e4def5f96d4fcdb952e458129704511f5c0c4236c47329d80291.jpg" alt="像素提升示意圖">
+                                 <figcaption class="text-sm text-gray-500 mt-1">圖：像素提升示意</figcaption>
+                            </figure>
+                             <figure class="text-center">
+                                <img src="https://cdn-mineru.openxlab.org.cn/extract/db2eacda-b623-49a3-8002-6d5df21e7a7a/030d63fc199d7741947bcc24f377306b5b513edb8f5b2576765733d0a7c5f473.jpg" alt="像素提升示意圖2">
+                                 <figcaption class="text-sm text-gray-500 mt-1">圖：像素提升示意 (續)</figcaption>
+                            </figure>
+                        </div>
+                        <div class="table-container mt-6">
+                             <p class="font-medium mb-2 text-center">主流 <span class="tooltip">VR<span class="tooltiptext">Virtual Reality (虛擬實境)，利用電腦技術創造一個模擬環境，讓使用者感覺身歷其境，通常需要配戴頭戴式顯示器。</span></span> 裝置單眼像素演進</p>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>像素 (單眼)</th>
+                                        <th>Oculus Quest 1 (2019)</th>
+                                        <th>PICO 4 (2022)</th>
+                                        <th>Meta Quest Pro (2022)</th>
+                                        <th>Apple Vision Pro (2024)</th>
+                                        <th>Apple Vision Pro 2 (預測)</th>
+                                        <th>理想 <span class="tooltip">XR<span class="tooltiptext">Extended Reality (延展實境)，是一個涵蓋所有沉浸式技術的總稱，包括 VR (虛擬實境)、AR (擴增實境) 和 MR (混合實境)。</span></span> 螢幕</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>水平</td><td>1440</td><td>2160</td><td>1800</td><td>3648</td><td>~5250</td><td>7200</td></tr>
+                                    <tr><td>垂直</td><td>1600</td><td>2160</td><td>1920</td><td>3144</td><td>~5700</td><td>8100</td></tr>
+                                    <tr><td>總像素</td><td>~2.3 M</td><td>~4.7 M</td><td>~3.5 M</td><td>~11.5 M</td><td>~30 M</td><td>~58.3 M</td></tr>
+                                </tbody>
+                            </table>
+                             <p class="text-xs text-gray-500 mt-1">*說明：以上像素為單眼數值。圖示是在假設像素密度相同的情況下的螢幕尺寸隨像素的變化情況，實際螢幕由於像素密度的不斷增加，物理尺寸可能不增反降。</p>
+                        </div>
+                        <figure class="mt-6 text-center">
+                            <img src="https://cdn-mineru.openxlab.org.cn/extract/db2eacda-b623-49a3-8002-6d5df21e7a7a/884132d14489ac0a943398b3a89fdbbdbf44a3ee5b052f3c53515f4a235aac49.jpg" alt="像素增加尺寸變化示意圖">
+                             <figcaption class="text-sm text-gray-500 mt-1">圖：像素增加下螢幕尺寸變化示意 (假設 PPI 不變)</figcaption>
+                        </figure>
+                        <div class="mt-8 p-4 bg-yellow-100 rounded-lg border border-yellow-300">
+                             <h4 class="font-semibold text-yellow-800 mb-2">跨越門檻：辦公應用需要至少 35 <span class="tooltip">PPD<span class="tooltiptext">Pixels Per Degree (每度像素數)，衡量顯示銳利度的指標，代表人眼在一度視角內能分辨多少像素。60 PPD 被認為是接近人眼極限。</span></span> 才能清晰閱讀文字 ✍️</h4>
+                             <p class="text-sm text-yellow-700">對於需要長時間閱讀文字、處理文件的辦公或生產力場景，螢幕的清晰度至關重要。業界普遍認為，至少需要達到 35 <span class="tooltip">PPD<span class="tooltiptext">Pixels Per Degree (每度像素數)，衡量顯示銳利度的指標，代表人眼在一度視角內能分辨多少像素。60 PPD 被認為是接近人眼極限。</span></span> 才能確保文字清晰、舒適閱讀，減少視覺疲勞。Apple Vision Pro 的推出，正是跨越此門檻的重要里程碑。</p>
+                             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+                                 <figure><img src="https://cdn-mineru.openxlab.org.cn/extract/db2eacda-b623-49a3-8002-6d5df21e7a7a/a5edc3a50b57c37ae2d792024f839601acccc37fa35a168b50759a0402f74179.jpg" alt="低 PPD 文字"></figure>
+                                 <figure><img src="https://cdn-mineru.openxlab.org.cn/extract/db2eacda-b623-49a3-8002-6d5df21e7a7a/41184e4a139d4ec4377cad6e504786e899fbb0dcf3916745092cf3357d158c53.jpg" alt="中 PPD 文字"></figure>
+                                 <figure><img src="https://cdn-mineru.openxlab.org.cn/extract/db2eacda-b623-49a3-8002-6d5df21e7a7a/0156c8335450eb011147a7d56692b59cb4dc656b9f4fd3f9884e8d795c59f61b.jpg" alt="高 PPD 文字"></figure>
+                             </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 二、螢幕分類與趨勢 -->
+            <section id="displays" class="bg-white rounded-lg shadow p-6">
+                <h2 class="text-2xl font-semibold text-gray-700 mb-6 border-l-4 border-blue-600 pl-4">二、AR/VR 螢幕技術大比拚：分類、特點與未來趨勢 🏆</h2>
+
+                 <div class="mb-8">
+                    <h3 class="text-xl font-semibold mb-3 text-gray-700"><span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span>：高像素密度的明日之星 ✨</h3>
+                    <p class="mb-4">憑藉著超高像素密度、自發光、體積小、功耗相對較低等優勢，<span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 正快速成為 <span class="tooltip">XR<span class="tooltiptext">Extended Reality (延展實境)，是一個涵蓋所有沉浸式技術的總稱，包括 VR (虛擬實境)、AR (擴增實境) 和 MR (混合實境)。</span></span> 裝置，特別是高階 <span class="tooltip">VR<span class="tooltiptext">Virtual Reality (虛擬實境)，利用電腦技術創造一個模擬環境，讓使用者感覺身歷其境，通常需要配戴頭戴式顯示器。</span></span> 和部分 <span class="tooltip">AR<span class="tooltiptext">Augmented Reality (擴增實境)，將數位資訊疊加到真實世界畫面的技術，使用者仍能看到周遭環境。</span></span> 眼鏡的首選顯示技術。</p>
+
+                    <div class="collapsible-section mb-6">
+                        <div class="collapsible-header p-3 flex justify-between items-center bg-gray-50">
+                            <h4 class="text-lg font-semibold text-gray-600"><span class="tooltip">AR<span class="tooltiptext">Augmented Reality (擴增實境)，將數位資訊疊加到真實世界畫面的技術，使用者仍能看到周遭環境。</span></span>/<span class="tooltip">VR<span class="tooltiptext">Virtual Reality (虛擬實境)，利用電腦技術創造一個模擬環境，讓使用者感覺身歷其境，通常需要配戴頭戴式顯示器。</span></span> 螢幕技術發展藍圖 🗺️</h4>
+                            <svg class="w-6 h-6 transform transition-transform text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                        <div class="collapsible-content p-4 bg-gray-50 rounded-b-lg">
+                             <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr><th>應用</th><th>2016-2021</th><th>2022-2025E</th><th>2026E-2030E</th></tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="font-medium"><span class="tooltip">VR<span class="tooltiptext">Virtual Reality (虛擬實境)，利用電腦技術創造一個模擬環境，讓使用者感覺身歷其境，通常需要配戴頭戴式顯示器。</span></span></td>
+                                            <td><span class="tooltip">LCD<span class="tooltiptext">Liquid Crystal Display (液晶顯示器)，一種成熟的平板顯示技術，需要背光源，成本較低。</span></span>/<span class="tooltip">OLED<span class="tooltiptext">Organic Light Emitting Diode (有機發光二極體)，一種自發光顯示技術，色彩鮮豔、對比度高，常用於手機和電視。</span></span></td>
+                                            <td><span class="tooltip">LCD<span class="tooltiptext">Liquid Crystal Display (液晶顯示器)，一種成熟的平板顯示技術，需要背光源，成本較低。</span></span>/<span class="tooltip">OLED<span class="tooltiptext">Organic Light Emitting Diode (有機發光二極體)，一種自發光顯示技術，色彩鮮豔、對比度高，常用於手機和電視。</span></span>/<span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span></td>
+                                            <td class="font-semibold text-blue-600"><span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> (主流)</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="font-medium"><span class="tooltip">AR<span class="tooltiptext">Augmented Reality (擴增實境)，將數位資訊疊加到真實世界畫面的技術，使用者仍能看到周遭環境。</span></span></td>
+                                            <td><span class="tooltip">LCoS<span class="tooltiptext">Liquid Crystal on Silicon (矽基液晶)，一種反射式微顯示技術，將液晶置於矽基 CMOS 電路之上。</span></span>/<span class="tooltip">DLP<span class="tooltiptext">Digital Light Processing (數位光源處理)，由德州儀器開發，利用微鏡陣列反射光線成像的技術。</span></span>/<span class="tooltip">LBS<span class="tooltiptext">Laser Beam Scanning (雷射光束掃描)，使用雷射光束和微型掃描鏡來逐點繪製影像的技術。</span></span></td>
+                                            <td><span class="tooltip">LCoS<span class="tooltiptext">Liquid Crystal on Silicon (矽基液晶)，一種反射式微顯示技術，將液晶置於矽基 CMOS 電路之上。</span></span>/<span class="tooltip">LBS<span class="tooltiptext">Laser Beam Scanning (雷射光束掃描)，使用雷射光束和微型掃描鏡來逐點繪製影像的技術。</span></span>/<span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span>/<span class="tooltip">MicroLED<span class="tooltiptext">Micro-LED (微發光二極體)，由無機材料製成的微米級 LED 陣列，具備高亮度、高對比、長壽命等優點。</span></span> (單色/早期全彩)</td>
+                                            <td class="font-semibold text-blue-600"><span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> / <span class="tooltip">MicroLED<span class="tooltiptext">Micro-LED (微發光二極體)，由無機材料製成的微米級 LED 陣列，具備高亮度、高對比、長壽命等優點。</span></span> (全彩成熟)</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="collapsible-section mb-6">
+                         <div class="collapsible-header p-3 flex justify-between items-center bg-gray-50">
+                            <h4 class="text-lg font-semibold text-gray-600">各類顯示技術特性比較表 ⭐</h4>
+                            <svg class="w-6 h-6 transform transition-transform text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                         <div class="collapsible-content p-4 bg-gray-50 rounded-b-lg">
+                            <div class="table-container">
+                                <table class="text-sm">
+                                    <thead>
+                                        <tr><th>特性</th><th><span class="tooltip">LCD<span class="tooltiptext">Liquid Crystal Display (液晶顯示器)，一種成熟的平板顯示技術，需要背光源，成本較低。</span></span></th><th><span class="tooltip">DLP<span class="tooltiptext">Digital Light Processing (數位光源處理)，由德州儀器開發，利用微鏡陣列反射光線成像的技術。</span></span></th><th><span class="tooltip">LCoS<span class="tooltiptext">Liquid Crystal on Silicon (矽基液晶)，一種反射式微顯示技術，將液晶置於矽基 CMOS 電路之上。</span></span></th><th><span class="tooltip">LBS<span class="tooltiptext">Laser Beam Scanning (雷射光束掃描)，使用雷射光束和微型掃描鏡來逐點繪製影像的技術。</span></span></th><th class="text-blue-600"><span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span></th><th class="text-green-600"><span class="tooltip">MicroLED<span class="tooltiptext">Micro-LED (微發光二極體)，由無機材料製成的微米級 LED 陣列，具備高亮度、高對比、長壽命等優點。</span></span></th></tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td>自發光</td><td>❌</td><td>❌</td><td>❌</td><td>❌</td><td class="text-blue-600">✅</td><td class="text-green-600">✅</td></tr>
+                                        <tr><td>像素密度高</td><td>★☆☆☆☆</td><td>★☆☆☆☆</td><td>★★★☆☆</td><td>★★☆☆☆</td><td class="text-blue-600">★★★★★</td><td class="text-green-600">★★★★★</td></tr>
+                                        <tr><td>體積小</td><td>★☆☆☆☆</td><td>★☆☆☆☆</td><td>★★★☆☆</td><td>★★☆☆☆</td><td class="text-blue-600">★★★★★</td><td class="text-green-600">★★★★★</td></tr>
+                                        <tr><td>功耗低</td><td>★☆☆☆☆</td><td>★★★☆☆</td><td>★★★★☆</td><td>★★★☆☆</td><td class="text-blue-600">★★★★★</td><td class="text-green-600">★★★★★</td></tr>
+                                        <tr><td>成本低廉</td><td>★★★★★</td><td>★★★☆☆</td><td>★★★★☆</td><td>★★☆☆☆</td><td class="text-blue-600">★★★☆☆</td><td class="text-green-600">★☆☆☆☆ (初期)</td></tr>
+                                        <tr><td>對比度高</td><td>★☆☆☆☆</td><td>★★★☆☆</td><td>★★☆☆☆</td><td>★★★☆☆</td><td class="text-blue-600">★★★★★</td><td class="text-green-600">★★★★★</td></tr>
+                                        <tr><td>亮度高</td><td>★★★☆☆</td><td>★★★☆☆</td><td>★★★☆☆</td><td>★★★★☆</td><td class="text-blue-600">★★★☆☆</td><td class="text-green-600">★★★★★</td></tr>
+                                        <tr><td>壽命長</td><td>★★★☆☆</td><td>★★★☆☆</td><td>★★★☆☆</td><td>★★★☆☆</td><td class="text-blue-600">★★☆☆☆</td><td class="text-green-600">★★★★★</td></tr>
+                                        <tr><td>生態開放</td><td>★★★★★</td><td>★☆☆☆☆</td><td>★★★★★</td><td>★☆☆☆☆</td><td class="text-blue-600">★★★★★</td><td class="text-green-600">★★★★★</td></tr>
+                                    </tbody>
+                                </table>
+                                <p class="text-xs text-gray-500 mt-1">*評級僅供參考，實際表現依具體產品而異。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="collapsible-section mb-8">
+                     <div class="collapsible-header p-3 flex justify-between items-center bg-gray-50">
+                        <h3 class="text-xl font-semibold text-gray-700"><span class="tooltip">MicroLED<span class="tooltiptext">Micro-LED (微發光二極體)，由無機材料製成的微米級 LED 陣列，具備高亮度、高對比、長壽命等優點。</span></span> 技術的挑戰與時程 ⏳</h3>
+                        <svg class="w-6 h-6 transform transition-transform text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="collapsible-content p-4 bg-gray-50 rounded-b-lg">
+                        <p class="mb-4"><span class="tooltip">MicroLED<span class="tooltiptext">Micro-LED (微發光二極體)，由無機材料製成的微米級 LED 陣列，具備高亮度、高對比、長壽命等優點。</span></span> 因其高亮度、高對比、長壽命等優勢，被視為 <span class="tooltip">AR<span class="tooltiptext">Augmented Reality (擴增實境)，將數位資訊疊加到真實世界畫面的技術，使用者仍能看到周遭環境。</span></span> 顯示的終極解決方案之一。然而，其商業化，特別是應用於 <span class="tooltip">AR<span class="tooltiptext">Augmented Reality (擴增實境)，將數位資訊疊加到真實世界畫面的技術，使用者仍能看到周遭環境。</span></span>/<span class="tooltip">VR<span class="tooltiptext">Virtual Reality (虛擬實境)，利用電腦技術創造一個模擬環境，讓使用者感覺身歷其境，通常需要配戴頭戴式顯示器。</span></span> 的高密度全彩面板，仍面臨諸多挑戰。</p>
+                        <div class="table-container mb-4">
+                            <p class="font-medium text-center mb-2">MicroLED 技術分類與成熟度</p>
+                            <table>
+                                <thead>
+                                    <tr><th>類別</th><th>應用場景</th><th>像素密度 (<span class="tooltip">PPI<span class="tooltiptext">Pixels Per Inch (每英寸像素數)，衡量顯示器物理像素密度的指標，PPI 越高代表螢幕越精細。</span></span>)</th><th>關鍵製造技術</th><th>成熟度</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="bg-green-50">
+                                        <td class="font-semibold text-green-700">高密度 MicroLED</td>
+                                        <td><span class="tooltip">AR<span class="tooltiptext">Augmented Reality (擴增實境)，將數位資訊疊加到真實世界畫面的技術，使用者仍能看到周遭環境。</span></span>/<span class="tooltip">VR<span class="tooltiptext">Virtual Reality (虛擬實境)，利用電腦技術創造一個模擬環境，讓使用者感覺身歷其境，通常需要配戴頭戴式顯示器。</span></span></td>
+                                        <td>≥ 2000</td>
+                                        <td>晶圓對晶圓 (Wafer-to-Wafer) 鍵合</td>
+                                        <td>單色屏：少數公司可小量商用<br><strong class="text-red-600">全彩屏：預計 2026 年後</strong></td>
+                                    </tr>
+                                    <tr class="bg-blue-50">
+                                        <td class="font-semibold text-blue-700">低密度 MicroLED</td>
+                                        <td>手機/手錶/平板/電視/汽車</td>
+                                        <td>20 ~ 500</td>
+                                        <td>巨量轉移 (Mass Transfer)</td>
+                                        <td>電視牆：已商用<br>手錶：預計 2024 年商用</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                         <div class="bg-yellow-50 p-4 rounded-lg border border-yellow-300 text-sm mb-4">
+                             <h4 class="font-semibold text-yellow-800 mb-2">關鍵區別：高密度 vs. 低密度</h4>
+                             <ul class="list-disc pl-5 space-y-1">
+                                 <li><span class="tooltip">AR<span class="tooltiptext">Augmented Reality (擴增實境)，將數位資訊疊加到真實世界畫面的技術，使用者仍能看到周遭環境。</span></span>/<span class="tooltip">VR<span class="tooltiptext">Virtual Reality (虛擬實境)，利用電腦技術創造一個模擬環境，讓使用者感覺身歷其境，通常需要配戴頭戴式顯示器。</span></span> 需要的是「高密度」<span class="tooltip">MicroLED<span class="tooltiptext">Micro-LED (微發光二極體)，由無機材料製成的微米級 LED 陣列，具備高亮度、高對比、長壽命等優點。</span></span> (≥2000 <span class="tooltip">PPI<span class="tooltiptext">Pixels Per Inch (每英寸像素數)，衡量顯示器物理像素密度的指標，PPI 越高代表螢幕越精細。</span></span>)。</li>
+                                 <li>目前技術相對成熟、已開始商用的是「低密度」<span class="tooltip">MicroLED<span class="tooltiptext">Micro-LED (微發光二極體)，由無機材料製成的微米級 LED 陣列，具備高亮度、高對比、長壽命等優點。</span></span> (≤500 <span class="tooltip">PPI<span class="tooltiptext">Pixels Per Inch (每英寸像素數)，衡量顯示器物理像素密度的指標，PPI 越高代表螢幕越精細。</span></span>)，主要應用於較大尺寸螢幕，其製造技術 (巨量轉移) 與高密度方案 (Wafer-to-Wafer) 不同。</li>
+                                 <li>Apple Watch 傳聞將採用的 <span class="tooltip">MicroLED<span class="tooltiptext">Micro-LED (微發光二極體)，由無機材料製成的微米級 LED 陣列，具備高亮度、高對比、長壽命等優點。</span></span> 仍屬於「低密度」範疇，無法直接應用於 <span class="tooltip">AR<span class="tooltiptext">Augmented Reality (擴增實境)，將數位資訊疊加到真實世界畫面的技術，使用者仍能看到周遭環境。</span></span>/<span class="tooltip">VR<span class="tooltiptext">Virtual Reality (虛擬實境)，利用電腦技術創造一個模擬環境，讓使用者感覺身歷其境，通常需要配戴頭戴式顯示器。</span></span> 頭盔。</li>
+                                 <li>高密度<span class="tooltip">MicroLED<span class="tooltiptext">Micro-LED (微發光二極體)，由無機材料製成的微米級 LED 陣列，具備高亮度、高對比、長壽命等優點。</span></span> 的「全彩化」是目前最大的技術瓶頸之一，單色方案雖已出現，但體驗受限。</li>
+                             </ul>
+                         </div>
+                         <figure class="text-center mb-4">
+                             <img src="https://cdn-mineru.openxlab.org.cn/extract/db2eacda-b623-49a3-8002-6d5df21e7a7a/3ce4dc0d6240c2f68e334ca49349dce7ae16e55a6288b712da35c77bce35635f.jpg" alt="MicroLED應用路線圖">
+                             <figcaption class="text-sm text-gray-500 mt-1">圖：MicroLED 應用發展路線圖 (來源: Yole Intelligence, 2022)</figcaption>
+                         </figure>
+
+                         <div class="table-container mt-6">
+                             <p class="font-medium text-center mb-2">高密度 vs. 低密度 MicroLED 實例對比</p>
+                             <p class="text-sm text-center mb-2 text-red-600">相同面積下，高密度面板的 LED 顆粒數是低密度的 8.5 萬倍！🤯</p>
+                             <table>
+                                 <thead>
+                                     <tr><th>實例</th><th>類別</th><th>色彩</th><th>像素密度 (<span class="tooltip">PPI<span class="tooltiptext">Pixels Per Inch (每英寸像素數)，衡量顯示器物理像素密度的指標，PPI 越高代表螢幕越精細。</span></span>)</th><th>像素間距</th><th><span class="tooltip">LED<span class="tooltiptext">Light Emitting Diode (發光二極體)，一種半導體固態發光元件。</span></span> 顆粒尺寸 (約)</th><th><span class="tooltip">LED<span class="tooltiptext">Light Emitting Diode (發光二極體)，一種半導體固態發光元件。</span></span> 顆粒總數 (0.22吋面積)</th></tr>
+                                 </thead>
+                                 <tbody>
+                                     <tr class="bg-green-50">
+                                         <td class="font-medium">昀光 (Lumicore) 0.22吋螢幕</td>
+                                         <td class="text-green-700">高密度</td>
+                                         <td>單色 (綠)</td>
+                                         <td>9963</td>
+                                         <td>2.5 微米</td>
+                                         <td>~2.5μm × 2.5μm</td>
+                                         <td class="font-semibold">~25.4 萬</td>
+                                     </tr>
+                                     <tr class="bg-blue-50">
+                                         <td class="font-medium">Sony ZRD-C12A (單元模組)</td>
+                                         <td class="text-blue-700">低密度</td>
+                                         <td>彩色 (RGB)</td>
+                                         <td>~20</td>
+                                         <td>1260 微米</td>
+                                         <td>~15μm × 7μm (單色)</td>
+                                         <td class="font-semibold">~3</td>
+                                     </tr>
+                                 </tbody>
+                             </table>
+                         </div>
+                         <figure class="mt-4 text-center">
+                             <img src="https://cdn-mineru.openxlab.org.cn/extract/db2eacda-b623-49a3-8002-6d5df21e7a7a/af02cc9352b1fac9c1f0e5388c9e963a781902a63f756e718e7f8f77ced4ce87.jpg" alt="高低密度 MicroLED 實例圖">
+                             <figcaption class="text-sm text-gray-500 mt-1">圖：高密度 (左, JBD) 與低密度 (右, Sony 拼接單元) MicroLED 比較</figcaption>
+                         </figure>
+                    </div>
+                 </div>
+
+                <div class="mb-6">
+                     <h3 class="text-xl font-semibold mb-3 text-gray-700"><span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 與 <span class="tooltip">MicroLED<span class="tooltiptext">Micro-LED (微發光二極體)，由無機材料製成的微米級 LED 陣列，具備高亮度、高對比、長壽命等優點。</span></span> (For <span class="tooltip">AR<span class="tooltiptext">Augmented Reality (擴增實境)，將數位資訊疊加到真實世界畫面的技術，使用者仍能看到周遭環境。</span></span>/<span class="tooltip">VR<span class="tooltiptext">Virtual Reality (虛擬實境)，利用電腦技術創造一個模擬環境，讓使用者感覺身歷其境，通常需要配戴頭戴式顯示器。</span></span>) 的發展趨勢預測 📈</h3>
+                     <p class="mb-4">短期內 (<span class="font-semibold">~2025年</span>)：</p>
+                     <ul class="list-disc pl-5 space-y-1 mb-4">
+                         <li><span class="tooltip">VR<span class="tooltiptext">Virtual Reality (虛擬實境)，利用電腦技術創造一個模擬環境，讓使用者感覺身歷其境，通常需要配戴頭戴式顯示器。</span></span>：受 Apple Vision Pro 帶動，高階 <span class="tooltip">VR<span class="tooltiptext">Virtual Reality (虛擬實境)，利用電腦技術創造一個模擬環境，讓使用者感覺身歷其境，通常需要配戴頭戴式顯示器。</span></span> 將快速導入 <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 作為主流方案。</li>
+                         <li><span class="tooltip">AR<span class="tooltiptext">Augmented Reality (擴增實境)，將數位資訊疊加到真實世界畫面的技術，使用者仍能看到周遭環境。</span></span>：<span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 主要應用於觀影類 <span class="tooltip">AR<span class="tooltiptext">Augmented Reality (擴增實境)，將數位資訊疊加到真實世界畫面的技術，使用者仍能看到周遭環境。</span></span> 眼鏡 (如 Birdbath 方案)，輕量級 <span class="tooltip">AR<span class="tooltiptext">Augmented Reality (擴增實境)，將數位資訊疊加到真實世界畫面的技術，使用者仍能看到周遭環境。</span></span> 仍以 <span class="tooltip">LCoS<span class="tooltiptext">Liquid Crystal on Silicon (矽基液晶)，一種反射式微顯示技術，將液晶置於矽基 CMOS 電路之上。</span></span>/<span class="tooltip">LBS<span class="tooltiptext">Laser Beam Scanning (雷射光束掃描)，使用雷射光束和微型掃描鏡來逐點繪製影像的技術。</span></span> 等搭配光波導為主，單色 <span class="tooltip">MicroLED<span class="tooltiptext">Micro-LED (微發光二極體)，由無機材料製成的微米級 LED 陣列，具備高亮度、高對比、長壽命等優點。</span></span> 開始少量應用。</li>
+                     </ul>
+                      <p class="mb-4">中長期 (<span class="font-semibold">2026年後</span>)：</p>
+                     <ul class="list-disc pl-5 space-y-1 mb-4">
+                         <li><span class="tooltip">VR<span class="tooltiptext">Virtual Reality (虛擬實境)，利用電腦技術創造一個模擬環境，讓使用者感覺身歷其境，通常需要配戴頭戴式顯示器。</span></span>：<span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 持續作為主流高階方案。</li>
+                         <li><span class="tooltip">AR<span class="tooltiptext">Augmented Reality (擴增實境)，將數位資訊疊加到真實世界畫面的技術，使用者仍能看到周遭環境。</span></span>：隨著全彩高密 <span class="tooltip">MicroLED<span class="tooltiptext">Micro-LED (微發光二極體)，由無機材料製成的微米級 LED 陣列，具備高亮度、高對比、長壽命等優點。</span></span> 技術成熟與成本下降，預計將逐步取代其他技術，成為 <span class="tooltip">AR<span class="tooltiptext">Augmented Reality (擴增實境)，將數位資訊疊加到真實世界畫面的技術，使用者仍能看到周遭環境。</span></span> 眼鏡的主流選擇，尤其是在對亮度要求更高的戶外應用。</li>
+                     </ul>
+                      <figure class="text-center">
+                         <img src="https://cdn-mineru.openxlab.org.cn/extract/db2eacda-b623-49a3-8002-6d5df21e7a7a/4ae60450cac965a0f627c5d8d4b8b71428146ce3ea943921585a495253a9bd2c.jpg" alt="MicroOLED 與 MicroLED 技術採用趨勢圖">
+                         <figcaption class="text-sm text-gray-500 mt-1">圖：MicroOLED 與 MicroLED 技術採用趨勢預測</figcaption>
+                     </figure>
+                </div>
+
+                <div class="mb-6">
+                     <h3 class="text-xl font-semibold mb-3 text-gray-700"><span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> (For <span class="tooltip">AR<span class="tooltiptext">Augmented Reality (擴增實境)，將數位資訊疊加到真實世界畫面的技術，使用者仍能看到周遭環境。</span></span>/<span class="tooltip">VR<span class="tooltiptext">Virtual Reality (虛擬實境)，利用電腦技術創造一個模擬環境，讓使用者感覺身歷其境，通常需要配戴頭戴式顯示器。</span></span>) 市場預測 💰</h3>
+                     <div class="bg-green-50 p-4 rounded-lg border border-green-200">
+                         <p class="mb-3">根據知名顯示產業顧問公司 <span class="tooltip">DSCC<span class="tooltiptext">Display Supply Chain Consultants，一家專注於顯示器供應鏈研究和諮詢的公司。</span></span> 的預測：</p>
+                         <ul class="list-disc pl-5 space-y-2">
+                             <li>整體 <span class="tooltip">AR<span class="tooltiptext">Augmented Reality (擴增實境)，將數位資訊疊加到真實世界畫面的技術，使用者仍能看到周遭環境。</span></span>/<span class="tooltip">VR<span class="tooltiptext">Virtual Reality (虛擬實境)，利用電腦技術創造一個模擬環境，讓使用者感覺身歷其境，通常需要配戴頭戴式顯示器。</span></span> 螢幕市場規模將以驚人的 <strong class="font-semibold">50.7%</strong> 年均複合成長率 (<span class="tooltip">CAGR<span class="tooltiptext">Compound Annual Growth Rate (年均複合成長率)，衡量投資或市場在特定時期內平均年度增長率的指標。</span></span>) 成長，預計 2027 年達到 <strong class="font-semibold text-green-700">73 億美元</strong>。</li>
+                             <li>受 Apple 等大廠採用的推動，全球 <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 銷售額將迎來爆發式增長：
+                                 <ul class="list-circle pl-5 text-sm">
+                                     <li>2023 年：預計超過 <strong class="font-semibold text-green-700">13 億美元</strong></li>
+                                     <li>2024 年：預計翻倍超過 <strong class="font-semibold text-green-700">26 億美元</strong></li>
+                                 </ul>
+                             </li>
+                              <li>到了 2027 年，<span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 的出貨量預計將佔所有 <span class="tooltip">AR<span class="tooltiptext">Augmented Reality (擴增實境)，將數位資訊疊加到真實世界畫面的技術，使用者仍能看到周遭環境。</span></span>/<span class="tooltip">VR<span class="tooltiptext">Virtual Reality (虛擬實境)，利用電腦技術創造一個模擬環境，讓使用者感覺身歷其境，通常需要配戴頭戴式顯示器。</span></span> 顯示器出貨量的 <strong class="font-semibold text-green-700">48%</strong>，成為市場主流。</li>
+                         </ul>
+                     </div>
+                     <figure class="mt-4 text-center">
+                         <img src="https://cdn-mineru.openxlab.org.cn/extract/db2eacda-b623-49a3-8002-6d5df21e7a7a/91b0acef8a2281af284b72166661b67bfa60dfb20a87b5a56f36db1e9474fd36.jpg" alt="AR/VR 顯示面板市場預測圖">
+                         <figcaption class="text-sm text-gray-500 mt-1">圖：AR/VR 顯示面板出貨量預測 (依技術分類) (來源: DSCC)</figcaption>
+                     </figure>
+                </div>
+
+            </section>
+
+             <!-- 三、歷史 -->
+             <section id="history" class="bg-white rounded-lg shadow p-6">
+                <h2 class="text-2xl font-semibold text-gray-700 mb-6 border-l-4 border-blue-600 pl-4">三、<span class="tooltip">AR<span class="tooltiptext">Augmented Reality (擴增實境)，將數位資訊疊加到真實世界畫面的技術，使用者仍能看到周遭環境。</span></span>/<span class="tooltip">VR<span class="tooltiptext">Virtual Reality (虛擬實境)，利用電腦技術創造一個模擬環境，讓使用者感覺身歷其境，通常需要配戴頭戴式顯示器。</span></span> with <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 的發展足跡 👣</h2>
+
+                <div class="space-y-8">
+                    <div class="p-4 rounded-lg bg-gray-50 border border-gray-200">
+                        <h3 class="text-lg font-semibold mb-2 text-gray-800">2011年：Sony 開創先河，<span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 初登舞台 📸</h3>
+                        <p class="text-sm mb-3">為了解決當時單眼相機 <span class="tooltip">LCD<span class="tooltiptext">Liquid Crystal Display (液晶顯示器)，一種成熟的平板顯示技術，需要背光源，成本較低。</span></span> 取景器亮度和刷新率不足的問題，Sony 開始研發 <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 技術。同年，Sony 推出了全球首款商用 <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 顯示器，並率先應用於其單眼相機的電子觀景窗 (<span class="tooltip">EVF<span class="tooltiptext">Electronic Viewfinder (電子觀景窗)，數位相機上用來取代傳統光學觀景窗的微型顯示器。</span></span>)。</p>
+                        <figure class="text-center">
+                             <img src="https://cdn-mineru.openxlab.org.cn/extract/db2eacda-b623-49a3-8002-6d5df21e7a7a/1c09381f26308b598c6c72eec85d832f86b61eb98b40366d354de995fbec53d0.jpg" alt="Sony 相機 EVF">
+                             <figcaption class="text-xs text-gray-500 mt-1">圖：Sony 相機的 MicroOLED 電子觀景窗</figcaption>
+                         </figure>
+                    </div>
+
+                    <div class="p-4 rounded-lg bg-gray-50 border border-gray-200">
+                        <h3 class="text-lg font-semibold mb-2 text-gray-800">2011年：全球首款 <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 眼鏡 Sony HMZ-T1 問世 👓</h3>
+                        <p class="text-sm mb-3">緊隨 <span class="tooltip">EVF<span class="tooltiptext">Electronic Viewfinder (電子觀景窗)，數位相機上用來取代傳統光學觀景窗的微型顯示器。</span></span> 之後，Sony 同年發布了頭戴式顯示器 HMZ-T1，配備兩塊 1280x720 解析度的 <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 螢幕，成為最早將 <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 應用於消費級眼鏡產品的代表作，主打個人影院體驗。</p>
+                         <figure class="text-center grid grid-cols-1 sm:grid-cols-2 gap-4">
+                             <img src="https://cdn-mineru.openxlab.org.cn/extract/db2eacda-b623-49a3-8002-6d5df21e7a7a/3f1a3b11b59acc803cfe047f8c73b479a1b33119999e0a8138b2253180f5862f.jpg" alt="Sony HMZ-T1 外觀">
+                             <img src="https://cdn-mineru.openxlab.org.cn/extract/db2eacda-b623-49a3-8002-6d5df21e7a7a/a3852a79c4ed22f8cf80fe338a8a22f427fe190183f87fa39128e2c1dcc3a02d.jpg" alt="Sony HMZ-T1 內部">
+                             <figcaption class="sm:col-span-2 text-xs text-gray-500 mt-1">圖：Sony HMZ-T1 頭戴式顯示器</figcaption>
+                         </figure>
+                    </div>
+
+                     <div class="p-4 rounded-lg bg-gray-50 border border-gray-200">
+                        <h3 class="text-lg font-semibold mb-2 text-gray-800">2021年：<span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 進入專業應用 - 新型夜視儀 🌙</h3>
+                        <p class="text-sm mb-3">憑藉高對比、低功耗、寬溫操作等特性，<span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 開始導入軍工、安防等專業領域，例如應用於新一代的數位夜視儀中，提供更清晰、更穩定的夜間視覺。</p>
+                        <figure class="text-center grid grid-cols-1 sm:grid-cols-2 gap-4">
+                             <img src="https://cdn-mineru.openxlab.org.cn/extract/db2eacda-b623-49a3-8002-6d5df21e7a7a/2d3327cd6869f62b36c8be88a3509ea5fcb5c7235c22f58715f3fa56c734a2e7.jpg" alt="MicroOLED 夜視儀 1">
+                             <img src="https://cdn-mineru.openxlab.org.cn/extract/db2eacda-b623-49a3-8002-6d5df21e7a7a/091c6869e04745226cf5ad67717b79b7fb18fb6c8fcbe6d96e23cf3c16ae8026.jpg" alt="MicroOLED 夜視儀 2">
+                             <figcaption class="sm:col-span-2 text-xs text-gray-500 mt-1">圖：應用 MicroOLED 的夜視儀</figcaption>
+                         </figure>
+                    </div>
+
+                     <div class="p-4 rounded-lg bg-gray-50 border border-gray-200">
+                        <h3 class="text-lg font-semibold mb-2 text-gray-800">2021/2022年：高通參考設計助推 <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> <span class="tooltip">AR<span class="tooltiptext">Augmented Reality (擴增實境)，將數位資訊疊加到真實世界畫面的技術，使用者仍能看到周遭環境。</span></span> 眼鏡普及化 📈</h3>
+                        <p class="text-sm mb-3">高通 (Qualcomm) 連續兩代 <span class="tooltip">AR<span class="tooltiptext">Augmented Reality (擴增實境)，將數位資訊疊加到真實世界畫面的技術，使用者仍能看到周遭環境。</span></span> 眼鏡參考設計 (Snapdragon Spaces <span class="tooltip">XR<span class="tooltiptext">Extended Reality (延展實境)，是一個涵蓋所有沉浸式技術的總稱，包括 VR (虛擬實境)、AR (擴增實境) 和 MR (混合實境)。</span></span> Developer Platform) 均採用了 <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 螢幕方案。這不僅驗證了 <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 在輕量化 <span class="tooltip">AR<span class="tooltiptext">Augmented Reality (擴增實境)，將數位資訊疊加到真實世界畫面的技術，使用者仍能看到周遭環境。</span></span> 上的潛力，更重要的是，首次將基於 <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 的 <span class="tooltip">AR<span class="tooltiptext">Augmented Reality (擴增實境)，將數位資訊疊加到真實世界畫面的技術，使用者仍能看到周遭環境。</span></span> 方案成本控制在消費級可接受範圍，極大地推動了 Rokid, Xreal (原 Nreal), 華為, 雷鳥等超過 20 家品牌推出類似的 <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> <span class="tooltip">AR<span class="tooltiptext">Augmented Reality (擴增實境)，將數位資訊疊加到真實世界畫面的技術，使用者仍能看到周遭環境。</span></span> 眼鏡。</p>
+                         <figure class="text-center grid grid-cols-1 sm:grid-cols-2 gap-4">
+                             <img src="https://cdn-mineru.openxlab.org.cn/extract/db2eacda-b623-49a3-8002-6d5df21e7a7a/ba9e39b342d9d846a1b23c106217c064bbd195961613ca8a78b01df0f369f9b7.jpg" alt="高通 AR 參考設計 1">
+                             <figcaption class="sm:col-span-2 text-xs text-gray-500 mt-1">圖：高通 Snapdragon Spaces XR 參考設計</figcaption>
+                         </figure>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                             <div class="bg-white p-4 rounded-lg border">
+                                 <h4 class="font-semibold text-gray-700 mb-2">代表產品：Rokid Air / Max</h4>
+                                 <p class="text-xs mb-2">Rokid 是最早採用高通方案並推出消費級 <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> <span class="tooltip">AR<span class="tooltiptext">Augmented Reality (擴增實境)，將數位資訊疊加到真實世界畫面的技術，使用者仍能看到周遭環境。</span></span> 眼鏡的品牌之一 (Rokid Air, 2021/9)。其產品採用 1920x1080 (Air) 或 1920x1200 (Max) 的 <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 螢幕，主打觀影體驗。Rokid 也獲得了包括 IDG, 淡馬錫在內的多輪融資，累計金額超 20 億人民幣。</p>
+                                  <figure class="text-center">
+                                     <img src="https://cdn-mineru.openxlab.org.cn/extract/db2eacda-b623-49a3-8002-6d5df21e7a7a/bed0d69eb73f2c69a5d60a2b64a0db1f5731f586cdfc7d1883be56f110e812f1.jpg" alt="Rokid 眼鏡">
+                                 </figure>
+                             </div>
+                            <div class="bg-white p-4 rounded-lg border">
+                                <h4 class="font-semibold text-gray-700 mb-2">代表產品：華為 Vision Glass</h4>
+                                <p class="text-xs mb-2">華為於 2022 年 12 月推出 Vision Glass 智慧觀影眼鏡，定價 2999 元人民幣。同樣採用兩塊 1920x1080 的 <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 顯示螢幕，強調可提供等效 120 吋的虛擬巨幕觀影體驗。</p>
+                                <figure class="text-center">
+    <img src="https://cdn-mineru.openxlab.org.cn/extract/db2eacda-b623-49a3-8002-6d5df21e7a7a/39ce1be5ae6eb64317d3c7e636499ee344def543459b9f007b5b2e6f33ec7721.jpg" alt="華為 Vision Glass 觀影示意圖" class="w-full rounded-lg shadow-md mb-2">
+    <!-- 可以選擇保留或移除下面的說明文字 -->
+    <!-- <figcaption class="text-xs text-gray-500 mt-1">圖：華為 Vision Glass 觀影示意</figcaption> -->
+</figure>
+                    </div>
+
+                    <div class="p-4 rounded-lg bg-gray-50 border border-gray-200">
+                        <h3 class="text-lg font-semibold mb-2 text-gray-800">2022年：大疆創新將 <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 導入 <span class="tooltip">FPV<span class="tooltiptext">First-Person View (第一人稱視角)，常用於無人機飛行，操作者透過眼鏡或螢幕看到無人機攝影機傳回的即時畫面，如同親身駕駛。</span></span> 眼鏡 🚁</h3>
+                        <p class="text-sm mb-3">全球無人機領導者大疆 (DJI) 在其第二代 <span class="tooltip">FPV<span class="tooltiptext">First-Person View (第一人稱視角)，常用於無人機飛行，操作者透過眼鏡或螢幕看到無人機攝影機傳回的即時畫面，如同親身駕駛。</span></span> (第一人稱視角) 飛行眼鏡 Goggles 2 中，首次搭載了兩塊由視涯科技 (Seeya) 提供的 0.49 吋 1080p <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 螢幕，具備 100Hz 刷新率，整機重量僅 290 克，大幅提升了飛行體驗。</p>
+                         <figure class="text-center">
+                             <img src="https://cdn-mineru.openxlab.org.cn/extract/db2eacda-b623-49a3-8002-6d5df21e7a7a/1f0bbd7cb68e84978a4cd509a7575ee46d9141cfb3ac63e9e664a8f2b993c933.jpg" alt="大疆 Goggles 2">
+                             <figcaption class="text-xs text-gray-500 mt-1">圖：大疆 Goggles 2 FPV 眼鏡</figcaption>
+                         </figure>
+                    </div>
+
+                     <div class="p-4 rounded-lg bg-gray-50 border border-gray-200">
+                        <h3 class="text-lg font-semibold mb-2 text-gray-800">2022年：高階應用 - <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 夜視瞄準鏡 🎯</h3>
+                        <p class="text-sm mb-3">中國熱成像技術公司艾睿光電 (InfiRay) 發布了多款採用 <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 螢幕的高階夜視瞄準鏡。例如其 RICO-HD-RS75 型號，配備了 1.03 吋、2560x2560 超高解析度的 <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 螢幕，定價高達 17,999 美元，顯示了 <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 在專業利基市場的應用潛力。</p>
+                         <figure class="text-center">
+                             <img src="https://cdn-mineru.openxlab.org.cn/extract/db2eacda-b623-49a3-8002-6d5df21e7a7a/03adb6ca5a3202439d616b28b4d3a6d522c85310413ce91785f083862518dd4d.jpg" alt="艾睿光電夜視瞄準鏡">
+                             <figcaption class="text-xs text-gray-500 mt-1">圖：艾睿光電 RICO-HD-RS75 夜視槍瞄</figcaption>
+                         </figure>
+                    </div>
+
+                    <div class="p-4 rounded-lg bg-gradient-to-r from-purple-50 to-pink-50 border border-purple-200">
+                        <h3 class="text-lg font-semibold mb-3 text-purple-800">2022年：<span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> <span class="tooltip">AR<span class="tooltiptext">Augmented Reality (擴增實境)，將數位資訊疊加到真實世界畫面的技術，使用者仍能看到周遭環境。</span></span>/<span class="tooltip">VR<span class="tooltiptext">Virtual Reality (虛擬實境)，利用電腦技術創造一個模擬環境，讓使用者感覺身歷其境，通常需要配戴頭戴式顯示器。</span></span> 產品集中爆發期 💥</h3>
+                        <p class="text-sm mb-3">在高通參考設計和供應鏈逐漸成熟的推動下，2022 年迎來了 <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> <span class="tooltip">XR<span class="tooltiptext">Extended Reality (延展實境)，是一個涵蓋所有沉浸式技術的總稱，包括 VR (虛擬實境)、AR (擴增實境) 和 MR (混合實境)。</span></span> 裝置的密集上市潮，市場呈現百花齊放的局面。</p>
+                         <figure class="text-center">
+                             <img src="https://cdn-mineru.openxlab.org.cn/extract/db2eacda-b623-49a3-8002-6d5df21e7a7a/e7425c6210dc074ae82127c313acb5880053aeb937a6b63c44de6c8f342ba478.jpg" alt="2022年 MicroOLED 產品圖集">
+                             <figcaption class="text-xs text-gray-500 mt-1">圖：2022 年部分搭載 MicroOLED 的 AR/VR 產品</figcaption>
+                         </figure>
+                    </div>
+
+                     <div class="p-4 rounded-lg bg-gray-50 border border-gray-200">
+                        <h3 class="text-lg font-semibold mb-2 text-gray-800">軍用升級：美軍 F-35 戰機頭盔顯示系統換裝 <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> ✈️</h3>
+                        <p class="text-sm mb-3">作為全球最先進的戰鬥機之一，F-35 飛行員頭盔顯示系統 (<span class="tooltip">HMDS<span class="tooltiptext">Helmet-Mounted Display System (頭盔顯示系統)，將顯示器整合到飛行員頭盔中，可直接在飛行員眼前顯示飛行數據、目標資訊等。</span></span>) 原本使用 Kopin 公司的 <span class="tooltip">LCD<span class="tooltiptext">Liquid Crystal Display (液晶顯示器)，一種成熟的平板顯示技術，需要背光源，成本較低。</span></span> 螢幕。2022 年 12 月，美國 <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 領先廠商 eMagin 宣布獲得柯林斯航空航天公司 (Collins Aerospace) 的訂單，將為 F-35 的 <span class="tooltip">HMDS<span class="tooltiptext">Helmet-Mounted Display System (頭盔顯示系統)，將顯示器整合到飛行員頭盔中，可直接在飛行員眼前顯示飛行數據、目標資訊等。</span></span> 提供高亮度的 <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 螢幕，標誌著 <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 技術在頂級軍事應用中的突破。</p>
+                         <figure class="text-center">
+                             <img src="https://cdn-mineru.openxlab.org.cn/extract/db2eacda-b623-49a3-8002-6d5df21e7a7a/4762aef18ca366e406d3aeb4c8e52226f8b11abfe4786a984a83cb4a0db071e7.jpg" alt="F-35 飛行員頭盔">
+                             <figcaption class="text-xs text-gray-500 mt-1">圖：F-35 戰鬥機飛行員頭盔</figcaption>
+                         </figure>
+                    </div>
+
+                    <div class="p-4 rounded-lg bg-blue-50 border border-blue-200">
+                        <h3 class="text-lg font-semibold mb-3 text-blue-800">Apple Vision Pro：官方強調 <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 核心地位 </h3>
+                        <p class="text-sm mb-3 italic bg-white p-3 rounded shadow-sm">"Apple Vision Pro is designed to deliver phenomenal compute performance in a compact wearable form factor. Featuring a breakthrough ultra-high-resolution display system built on top of an Apple silicon chip, Apple Vision Pro uses <strong class='text-blue-600'>MicroOLED</strong> technology to pack 23 million pixels into two displays, each the size of a postage stamp, with wide color and high dynamic range."</p>
+                        <p class="text-xs text-right text-gray-500 mb-3">- Apple 官方新聞稿 (摘錄)</p>
+                        <p class="text-sm mb-3">Apple 在 Vision Pro 的官方介紹中，特別強調了其搭載的超高解析度顯示系統是基於 Apple Silicon 晶片之上，並採用了 <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 技術，在兩塊郵票大小的螢幕中塞入了驚人的 2300 萬像素，並支援廣色域和高動態範圍 (<span class="tooltip">HDR<span class="tooltiptext">High Dynamic Range (高動態範圍)，指影像或視訊中，最亮和最暗部分之間的亮度差異範圍更大，能呈現更豐富的亮部和暗部細節。</span></span>)。</p>
+                         <figure class="text-center mb-4">
+                             <img src="https://cdn-mineru.openxlab.org.cn/extract/db2eacda-b623-49a3-8002-6d5df21e7a7a/d82adec6a76d17fc4241875c9adfb911b8f3ed44cc08a9cd52f9910d5bacb015.jpg" alt="Apple Vision Pro 官方圖">
+                         </figure>
+                         <div class="table-container mt-4">
+                             <p class="font-medium text-center mb-2">Apple Vision Pro <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 螢幕推測規格</p>
+                            <table>
+                                <thead><tr><th>規格</th><th>數據 (推測)</th></tr></thead>
+                                <tbody>
+                                    <tr><td>單眼像素</td><td>~3648 x 3144</td></tr>
+                                    <tr><td>總像素 (雙眼)</td><td>~2300 萬</td></tr>
+                                    <tr><td>尺寸 (Active Area, 對角線)</td><td>~1.42 吋</td></tr>
+                                    <tr><td>尺寸 (Active Area, 毫米)</td><td>~27.3mm x 23.6mm</td></tr>
+                                    <tr><td>亮度 (峰值)</td><td>> 5000 <span class="tooltip">nits<span class="tooltiptext">尼特 (Nit)，亮度的單位，定義為每平方公尺燭光 (cd/m²)。數值越高代表螢幕越亮。</span></span> (可能達 6000 nits)</td></tr>
+                                    <tr><td><span class="tooltip">PPI<span class="tooltiptext">Pixels Per Inch (每英寸像素數)，衡量顯示器物理像素密度的指標，PPI 越高代表螢幕越精細。</span></span> (像素密度)</td><td>~3391</td></tr>
+                                    <tr><td><span class="tooltip">PPD<span class="tooltiptext">Pixels Per Degree (每度像素數)，衡量顯示銳利度的指標，代表人眼在一度視角內能分辨多少像素。60 PPD 被認為是接近人眼極限。</span></span> (估計)</td><td>~34-40</td></tr>
+                                </tbody>
+                            </table>
+                         </div>
+                         <figure class="text-center mt-4">
+                            <img src="https://cdn-mineru.openxlab.org.cn/extract/db2eacda-b623-49a3-8002-6d5df21e7a7a/c0e848d0a081a69047d6bf4e19c3708f7a16f4a71dda4f3e50a0fde4c7938f70.jpg" alt="Apple Vision Pro 螢幕示意圖">
+                         </figure>
+                    </div>
+                </div>
+             </section>
+
+             <!-- 四、產品預測 -->
+             <section id="future" class="bg-white rounded-lg shadow p-6">
+                 <h2 class="text-2xl font-semibold text-gray-700 mb-6 border-l-4 border-blue-600 pl-4">四、未來展望：<span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 引領主流 <span class="tooltip">XR<span class="tooltiptext">Extended Reality (延展實境)，是一個涵蓋所有沉浸式技術的總稱，包括 VR (虛擬實境)、AR (擴增實境) 和 MR (混合實境)。</span></span> 品牌升級之路 (2023-2030) 🌟</h2>
+
+                 <p class="mb-4">隨著 Apple 將 <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 導入 <span class="tooltip">VR<span class="tooltiptext">Virtual Reality (虛擬實境)，利用電腦技術創造一個模擬環境，讓使用者感覺身歷其境，通常需要配戴頭戴式顯示器。</span></span> 領域，預計將掀起一波高階 <span class="tooltip">VR<span class="tooltiptext">Virtual Reality (虛擬實境)，利用電腦技術創造一個模擬環境，讓使用者感覺身歷其境，通常需要配戴頭戴式顯示器。</span></span> 產品的 <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 升級潮。Meta (Oculus), Sony, PICO, 華為等領先品牌，預期將在未來幾年內陸續推出搭載高階 <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 螢幕的 <span class="tooltip">VR<span class="tooltiptext">Virtual Reality (虛擬實境)，利用電腦技術創造一個模擬環境，讓使用者感覺身歷其境，通常需要配戴頭戴式顯示器。</span></span> 新產品。</p>
+                  <figure class="text-center mb-6">
+                     <img src="https://cdn-mineru.openxlab.org.cn/extract/db2eacda-b623-49a3-8002-6d5df21e7a7a/c6d56ec33341c7a7695ef201980d078e9ce2c15e9f030ee3d2d098f29745b991.jpg" alt="預計採用 MicroOLED 的 VR 品牌">
+                     <figcaption class="text-sm text-gray-500 mt-1">圖：預計在 2024~2025 年採用 MicroOLED 的 VR 品牌</figcaption>
+                 </figure>
+
+                <div class="collapsible-section">
+                     <div class="collapsible-header p-3 flex justify-between items-center bg-gray-50">
+                        <h3 class="text-xl font-semibold text-gray-700">搭載 <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 的 <span class="tooltip">AR<span class="tooltiptext">Augmented Reality (擴增實境)，將數位資訊疊加到真實世界畫面的技術，使用者仍能看到周遭環境。</span></span>/<span class="tooltip">VR<span class="tooltiptext">Virtual Reality (虛擬實境)，利用電腦技術創造一個模擬環境，讓使用者感覺身歷其境，通常需要配戴頭戴式顯示器。</span></span> 眼鏡歷史與預測總覽 📅</h3>
+                         <svg class="w-6 h-6 transform transition-transform text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="collapsible-content p-4 bg-gray-50 rounded-b-lg">
+                        <p class="text-sm mb-4 text-gray-600">下表匯總了歷年來部分採用 <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 螢幕的 <span class="tooltip">AR<span class="tooltiptext">Augmented Reality (擴增實境)，將數位資訊疊加到真實世界畫面的技術，使用者仍能看到周遭環境。</span></span>/<span class="tooltip">VR<span class="tooltiptext">Virtual Reality (虛擬實境)，利用電腦技術創造一個模擬環境，讓使用者感覺身歷其境，通常需要配戴頭戴式顯示器。</span></span> 眼鏡產品及其預測 (部分數據可能為估計值或有待發布)：</p>
+                        <div class="grid grid-cols-1 xl:grid-cols-2 gap-6">
+                            <div class="table-container">
+                                <p class="font-medium text-center mb-2">2011 - 2022 (部分)</p>
+                                <table class="text-xs">
+                                    <thead><tr><th>年份</th><th>品牌</th><th>型號</th><th>形態</th><th>單眼解析度</th><th>售價(￥)</th></tr></thead>
+                                    <tbody>
+                                        <tr><td>2011</td><td>索尼</td><td>HMZ-T1</td><td>分體機</td><td>1280x720</td><td>4920</td></tr>
+                                        <tr><td rowspan="2">2012</td><td>索尼</td><td>HMZ-T2</td><td>分體機</td><td>1280x720</td><td>不詳</td></tr>
+                                        <tr><td>Zeiss</td><td>Cinemizer</td><td>分體機</td><td>870x500</td><td>5523</td></tr>
+                                        <tr><td>2013</td><td>索尼</td><td>HMZ-T3W</td><td>分體機</td><td>1280x720</td><td>不詳</td></tr>
+                                        <tr><td>2015</td><td>嗨鏡</td><td>H1</td><td>分體機</td><td>1920x1080</td><td>3999</td></tr>
+                                        <tr><td rowspan="4">2016</td><td>嗨鏡</td><td>H2</td><td>分體機</td><td>1920x1080</td><td>3999</td></tr>
+                                        <tr><td>GOOVIS</td><td>G1</td><td>分體機</td><td>1920x1080</td><td>4399</td></tr>
+                                        <tr><td>愛普生</td><td>BT-300</td><td>分體機</td><td>1280x720</td><td>6888</td></tr>
+                                        <tr><td>柔宇</td><td>Moon</td><td>分體機</td><td>1920x1080</td><td>4999</td></tr>
+                                        <tr><td>2017</td><td>愛普生</td><td>BT-350</td><td>分體機</td><td>1280x720</td><td>9793</td></tr>
+                                        <tr><td>2018</td><td>GOOVIS</td><td>G2</td><td>分體機</td><td>1920x1080</td><td>4599</td></tr>
+                                        <tr><td rowspan="2">2019</td><td>愛普生</td><td>BT-30C</td><td>分體機</td><td>1280x720</td><td>3500</td></tr>
+                                        <tr><td>GOOVIS</td><td>Pro</td><td>分體機</td><td>1920x1080</td><td>6388</td></tr>
+                                        <tr><td rowspan="2">2021</td><td>Rokid</td><td>Air</td><td>分體機</td><td>1920x1080</td><td>2999</td></tr>
+                                        <tr><td>Arpara</td><td>5K VR</td><td>分體機</td><td>2560x2560</td><td>3799</td></tr>
+                                        <tr><td rowspan="10">2022</td><td>GOOVIS</td><td>Lite</td><td>分體機</td><td>1920x1080</td><td>2999</td></tr>
+                                        <tr><td>ThirdEye</td><td>Razor MR</td><td>分體機</td><td>1920x1080</td><td>不詳</td></tr>
+                                        <tr><td>視享</td><td>G330</td><td>分體機</td><td>1920x1080</td><td>2999</td></tr>
+                                        <tr><td>VITURE</td><td>One</td><td>分體機</td><td>1920x1080</td><td>~2800</td></tr>
+                                        <tr><td>高通</td><td>XR2 Ref</td><td>一體機</td><td>1920x1080</td><td>參考設計</td></tr>
+                                        <tr><td>愛普生</td><td>BT-45C/CS</td><td>分體機</td><td>1920x1080</td><td>to B</td></tr>
+                                        <tr><td>Xvisio</td><td>SeerLens One</td><td>分體機</td><td>1920x1080</td><td>to B</td></tr>
+                                        <tr><td>TCL (雷鳥)</td><td>Nxtwear Air</td><td>分體機</td><td>1920x1080</td><td>~2500</td></tr>
+                                        <tr><td>Xreal (Nreal)</td><td>Air</td><td>分體機</td><td>1920x1080</td><td>2299</td></tr>
+                                         <tr><td>Xreal (Nreal)</td><td>X</td><td>分體機</td><td>1920x1080</td><td>4299</td></tr>
+                                         <!-- ... 更多 2022 產品 ... -->
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="table-container">
+                                <p class="font-medium text-center mb-2">2022 (續) - 2025E (預測)</p>
+                                <table class="text-xs">
+                                     <thead><tr><th>年份</th><th>品牌</th><th>型號</th><th>形態</th><th>單眼解析度</th><th>售價(￥)</th></tr></thead>
+                                     <tbody>
+                                         <tr><td rowspan="10">2022</td><td>光粒</td><td>Holoswim 2</td><td>一體機</td><td>128x64</td><td>~700</td></tr>
+                                         <tr><td>聯想</td><td>YOGA T1</td><td>分體機</td><td>1920x1080</td><td>1999</td></tr>
+                                         <tr><td>雷鳥</td><td>Air 1s</td><td>分體機</td><td>1920x1080</td><td>2499</td></tr>
+                                         <tr><td>INMO</td><td>Air2</td><td>分體機</td><td>640x400</td><td>3999</td></tr>
+                                         <tr><td>華為</td><td>Vision Glass</td><td>分體機</td><td>1920x1080</td><td>2999</td></tr>
+                                         <tr><td>視享</td><td>G510</td><td>分體機</td><td>1280x720</td><td>to B</td></tr>
+                                         <tr><td>Dream</td><td>Glass Flow</td><td>分體機</td><td>1920x1080</td><td>2599</td></tr>
+                                         <tr><td>arpara</td><td>AIO 5K</td><td>一體機</td><td>2560x2560</td><td>6999</td></tr>
+                                         <tr><td>松下</td><td>MeganeX</td><td>一體機</td><td>2560x2560</td><td>~13000</td></tr>
+                                         <tr><td>大疆</td><td>Goggles 2</td><td>一體機(FPV)</td><td>1920x1080</td><td>~4500</td></tr>
+                                         <tr><td rowspan="4">2023E</td><td>GOOVIS</td><td>G3 Max</td><td>分體機</td><td>2560x1440</td><td>7999</td></tr>
+                                         <tr><td>Rokid</td><td>Max</td><td>分體機</td><td>1920X1200</td><td>2999</td></tr>
+                                         <tr><td>Xreal</td><td>Air 2</td><td>分體機</td><td>1920X1080</td><td>2599</td></tr>
+                                         <tr><td>雷鳥</td><td>Air 2</td><td>分體機</td><td>1920x1080</td><td>2499</td></tr>
+                                         <tr><td rowspan="6" class="bg-blue-50 font-semibold">2024~2025E (預測)</td><td>蘋果</td><td>Vision Pro</td><td>一體機</td><td>≥3.6k x 3.1k</td><td>$3499 (~24500)</td></tr>
+                                         <tr><td>索尼</td><td>(PS VR?)</td><td>不詳</td><td>~3.5k x 3.8k</td><td>待發布</td></tr>
+                                         <tr><td>Meta</td><td>(Quest Pro 2?)</td><td>一體機</td><td>~3.5k x 3.8k</td><td>待發布</td></tr>
+                                         <tr><td>PICO</td><td>(PICO 5 Pro?)</td><td>一體機</td><td>~3.5k x 3.8k</td><td>待發布</td></tr>
+                                         <tr><td>華為</td><td>(新品?)</td><td>一體機</td><td>~3.5k x 3.8k</td><td>待發布</td></tr>
+                                         <tr><td>蘋果</td><td>(Vision 2?)</td><td>一體機</td><td>~4k x 4k?</td><td>待發布</td></tr>
+                                     </tbody>
+                                 </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+             <!-- 五、銷售額預測 (此處合併到第二節) -->
+
+             <!-- 六、產業鏈 -->
+            <section id="industry" class="bg-white rounded-lg shadow p-6">
+                 <h2 class="text-2xl font-semibold text-gray-700 mb-6 border-l-4 border-blue-600 pl-4">五、全球 <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 產業鏈全景圖 🗺️</h2>
+
+                 <figure class="text-center mb-8">
+                     <img src="https://cdn-mineru.openxlab.org.cn/extract/db2eacda-b623-49a3-8002-6d5df21e7a7a/cbe080017ed2ee4cff6a3e5c616b7166867c437dd84c31d8e444ff35d48a625d.jpg" alt="MicroOLED 產業鏈全景圖">
+                     <figcaption class="text-sm text-gray-500 mt-1">圖：MicroOLED 產業鏈結構示意圖 (V2.1)</figcaption>
+                 </figure>
+
+                 <div class="collapsible-section mb-8">
+                    <div class="collapsible-header p-3 flex justify-between items-center bg-gray-50">
+                        <h3 class="text-xl font-semibold text-gray-700">成本關鍵：12 吋晶圓 vs. 8 吋晶圓 💰</h3>
+                        <svg class="w-6 h-6 transform transition-transform text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="collapsible-content p-4 bg-gray-50 rounded-b-lg">
+                        <p class="mb-4">由於 <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 是在矽基板上製造的，其成本與半導體製程息息相關。採用更大尺寸的晶圓 (Wafer) 可以在單片晶圓上切割出更多螢幕晶片 (Die)，從而有效降低單位成本。</p>
+                        <p class="mb-4">以 1.03 吋的螢幕為例，一片 12 吋晶圓可切割的螢幕數量大約是 8 吋晶圓的 <strong class="text-red-600 font-semibold">2.5 倍</strong>！</p>
+                        <p class="mb-4">因此，是否具備 <strong class="font-semibold text-blue-700">12 吋晶圓</strong> 的生產能力，成為了 <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 廠商是否具備大規模量產競爭力的重要指標。</p>
+                         <figure class="text-center">
+                             <img src="https://cdn-mineru.openxlab.org.cn/extract/db2eacda-b623-49a3-8002-6d5df21e7a7a/07013e9afc78def80e24cbaf4af01732e47b5408d9b2f510dfad38ab707dee19.jpg" alt="8吋與12吋晶圓切割數量對比圖">
+                             <figcaption class="text-sm text-gray-500 mt-1">圖：8吋 vs. 12吋晶圓可切割螢幕數量比較 (以1.03吋為例)</figcaption>
+                         </figure>
+                    </div>
+                </div>
+
+                 <div class="collapsible-section">
+                     <div class="collapsible-header p-3 flex justify-between items-center bg-gray-50">
+                        <h3 class="text-xl font-semibold text-gray-700">價值核心：像素密度 (<span class="tooltip">PPI<span class="tooltiptext">Pixels Per Inch (每英寸像素數)，衡量顯示器物理像素密度的指標，PPI 越高代表螢幕越精細。</span></span>) 決定價值 💎</h3>
+                         <svg class="w-6 h-6 transform transition-transform text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                     <div class="collapsible-content p-4 bg-gray-50 rounded-b-lg">
+                         <p class="mb-4">在相同的晶圓尺寸下，能夠製造出更高像素密度的螢幕，意味著更高的技術含量和市場價值。</p>
+                         <p class="mb-4">假設一塊 12 吋晶圓，如果用來切割 <span class="tooltip">PPI<span class="tooltiptext">Pixels Per Inch (每英寸像素數)，衡量顯示器物理像素密度的指標，PPI 越高代表螢幕越精細。</span></span> 為 3515 的 1.03 吋螢幕，相比切割 <span class="tooltip">PPI<span class="tooltiptext">Pixels Per Inch (每英寸像素數)，衡量顯示器物理像素密度的指標，PPI 越高代表螢幕越精細。</span></span> 為 2785 的 1.3 吋螢幕，前者切割數量更多 (120 vs 82)，其總價值量約為後者的 <strong class="text-red-600 font-semibold">1.4 倍</strong>。</p>
+                         <p class="mb-4"><strong class="text-blue-700">背板 (Backplane) 的設計與製造工藝</strong> 是提升像素密度的關鍵因素，直接影響了 <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 的性能與成本。</p>
+                         <figure class="text-center grid grid-cols-1 md:grid-cols-2 gap-4">
+                             <div>
+                                <img src="https://cdn-mineru.openxlab.org.cn/extract/db2eacda-b623-49a3-8002-6d5df21e7a7a/dfb25488b017aa7dc77bdfa83192eced891dc6b3a2854e6af3d7f69c3c301214.jpg" alt="12吋晶圓切割 1.3吋螢幕">
+                                <figcaption class="text-xs text-gray-500 mt-1">12吋晶圓切割 82 塊 1.3吋螢幕 (2560x2560, PPI: 2785)</figcaption>
+                             </div>
+                              <div>
+                                <img src="https://cdn-mineru.openxlab.org.cn/extract/db2eacda-b623-49a3-8002-6d5df21e7a7a/c415399da0873e14c8fecc8c0784a18c2ecc52b7fbb3a0855a425eff3df11f6d.jpg" alt="12吋晶圓切割 1.03吋螢幕">
+                                <figcaption class="text-xs text-gray-500 mt-1">12吋晶圓切割 120 塊 1.03吋螢幕 (2560x2560, PPI: 3515)</figcaption>
+                             </div>
+                         </figure>
+                     </div>
+                 </div>
+            </section>
+
+            <!-- 七、核心廠商 -->
+            <section id="companies" class="bg-white rounded-lg shadow p-6">
+                 <h2 class="text-2xl font-semibold text-gray-700 mb-6 border-l-4 border-blue-600 pl-4">六、<span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 核心廠商與供應鏈透視 🏭</h2>
+
+                 <div class="space-y-10">
+                    <!-- Sony -->
+                    <div class="border-b pb-6">
+                        <h3 class="text-xl font-semibold mb-3 text-blue-700">🇯🇵 Sony (索尼) - 技術先驅</h3>
+                        <p class="text-sm mb-4">作為 <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 技術的開創者，Sony 在早期消費級產品 (如 HMZ 系列頭戴顯示器) 和相機 <span class="tooltip">EVF<span class="tooltiptext">Electronic Viewfinder (電子觀景窗)，數位相機上用來取代傳統光學觀景窗的微型顯示器。</span></span> 市場佔據領先地位。目前是 Apple Vision Pro 的 <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 蒸鍍 (<span class="tooltip">OLED<span class="tooltiptext">Organic Light Emitting Diode (有機發光二極體)，一種自發光顯示技術，色彩鮮豔、對比度高，常用於手機和電視。</span></span> Deposition) 供應商。</p>
+                         <figure class="text-center">
+                             <img src="https://cdn-mineru.openxlab.org.cn/extract/db2eacda-b623-49a3-8002-6d5df21e7a7a/c697478f3a48857846699dc256a3398c6c874327b1df8cd195a7d1c96f760ba3.jpg" alt="Sony MicroOLED 產品示意圖">
+                             <figcaption class="text-xs text-gray-500 mt-1">圖：Sony MicroOLED 產品 (示意)</figcaption>
+                         </figure>
+                    </div>
+
+                    <!-- BOE -->
+                     <div class="border-b pb-6">
+                         <h3 class="text-xl font-semibold mb-3 text-blue-700">🇨🇳 BOE (京東方) - 中國面板巨頭</h3>
+                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
+                             <div class="text-sm bg-gray-50 p-3 rounded">
+                                 <p><strong class="font-medium">廠房位置：</strong> 昆明官渡區雲南滇中新區</p>
+                                 <p><strong class="font-medium">一期 (已量產)：</strong> 8 吋晶圓產線</p>
+                                 <p><strong class="font-medium">二期 (建設中, 預計2024/1完成)：</strong> 12 吋晶圓產線 (規劃年產能 12 萬片晶圓/年, 分三期)</p>
+                                 <p><strong class="font-medium">背景：</strong> 2017年與奧雷德、滇中集團等合資成立「雲南創視界」投入 MicroOLED 生產。</p>
+                             </div>
+                              <figure class="text-center">
+                                 <img src="https://cdn-mineru.openxlab.org.cn/extract/db2eacda-b623-49a3-8002-6d5df21e7a7a/3702257111b29eaf495ba517fdcfef193e011fb77c585b62d337dc976f98b9dc.jpg" alt="京東方昆明廠房">
+                                  <figcaption class="text-xs text-gray-500 mt-1">圖：京東方昆明 MicroOLED 廠房 (示意)</figcaption>
+                             </figure>
+                         </div>
+                         <div class="collapsible-section mb-4">
+                             <div class="collapsible-header p-3 flex justify-between items-center bg-blue-50">
+                                <h4 class="text-lg font-semibold text-blue-800">京東方 <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 產品亮點 ✨</h4>
+                                 <svg class="w-6 h-6 transform transition-transform text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </div>
+                             <div class="collapsible-content p-4 bg-blue-50 rounded-b-lg">
+                                 <p class="text-sm mb-3">京東方在 2023 年 5 月的 SID Display Week 上展示了其最新的 1.3 吋 4K <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 面板，規格亮眼：</p>
+                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                                      <figure class="text-center">
+                                         <img src="https://cdn-mineru.openxlab.org.cn/extract/db2eacda-b623-49a3-8002-6d5df21e7a7a/719cbeb8a52cea1d23dcb9e34c53ab1d33a5ab7d22dc5ef81a8db298539e34e4.jpg" alt="京東方 1.3吋 4K MicroOLED">
+                                         <figcaption class="text-xs text-gray-500 mt-1">圖：京東方 1.3" 4K MicroOLED</figcaption>
+                                     </figure>
+                                     <div class="table-container text-xs">
+                                         <table>
+                                             <thead><tr><th>參數</th><th>數據</th></tr></thead>
+                                             <tbody>
+                                                 <tr><td>亮度 (峰值)</td><td>> 5000 <span class="tooltip">nits<span class="tooltiptext">尼特 (Nit)，亮度的單位，定義為每平方公尺燭光 (cd/m²)。數值越高代表螢幕越亮。</span></span> (典型 1000nit)</td></tr>
+                                                 <tr><td>解析度</td><td>3552 x 3840</td></tr>
+                                                 <tr><td><span class="tooltip">PPI<span class="tooltiptext">Pixels Per Inch (每英寸像素數)，衡量顯示器物理像素密度的指標，PPI 越高代表螢幕越精細。</span></span></td><td>4031</td></tr>
+                                                 <tr><td>對比度</td><td>> 100,000:1</td></tr>
+                                                 <tr><td>色域</td><td>90% <span class="tooltip">DCI-P3<span class="tooltiptext">Digital Cinema Initiatives - Protocol 3，電影行業常用的色彩空間標準，比 sRGB 覆蓋更廣的綠色和紅色範圍。</span></span></td></tr>
+                                                 <tr><td>刷新率</td><td>90Hz</td></tr>
+                                             </tbody>
+                                         </table>
+                                          <p class="mt-2 text-xs font-medium">* 支持注視點渲染 (Foveated Rendering) 模式</p>
+                                          <p class="mt-1 text-xs font-medium">* 支持大角度主光線角 (<span class="tooltip">CRA<span class="tooltiptext">Chief Ray Angle (主光線角)，光學系統中，從物體中心發出並穿過光圈中心的光線角度。</span></span>)</p>
+                                     </div>
+                                 </div>
+                                 <p class="text-sm mt-4 mb-2">京東方表示，其產品採用了 <strong class="font-medium">Tandem 雙層串聯結構</strong> 技術，提升了亮度和壽命，並自主設計陽極阻斷架構和高色域光學體系，解決了微尺寸超高解析度、高亮度 (低功耗)、顯示均一性等難題。</p>
+                                 <figure class="text-center">
+                                     <img src="https://cdn-mineru.openxlab.org.cn/extract/db2eacda-b623-49a3-8002-6d5df21e7a7a/903c1fd9e80731739620763b8c18a5b28aa5e05157c468e1fe0604a77e1ca321.jpg" alt="京東方雙層堆疊方案示意圖">
+                                     <figcaption class="text-xs text-gray-500 mt-1">圖：京東方 Tandem 雙層堆疊方案 (示意)</figcaption>
+                                 </figure>
+                                 <div class="table-container mt-4">
+                                      <p class="font-medium text-center text-sm mb-2">京東方 MicroOLED 產品列表 (2023/6 後)</p>
+                                     <table class="text-xs">
+                                         <thead><tr><th>產品</th><th>0.39"</th><th>0.5"</th><th>1.3" (新)</th></tr></thead>
+                                         <tbody>
+                                             <tr><td>解析度</td><td>1920x1080</td><td>1600x1200</td><td>3552x3840</td></tr>
+                                             <tr><td>技術</td><td>MicroOLED</td><td>MicroOLED</td><td>MicroOLED</td></tr>
+                                             <tr><td><span class="tooltip">PPI<span class="tooltiptext">Pixels Per Inch (每英寸像素數)，衡量顯示器物理像素密度的指標，PPI 越高代表螢幕越精細。</span></span></td><td>5644</td><td>4032</td><td>4031</td></tr>
+                                             <tr><td>反應時間 (GtG)</td><td>≤ 1ms</td><td>≤ 1ms</td><td>≤ 1ms</td></tr>
+                                             <tr><td>對比度 (典型)</td><td>>100k:1</td><td>>100k:1</td><td>>100k:1</td></tr>
+                                             <tr><td>色域 (典型)</td><td>80% NTSC</td><td>80% NTSC</td><td>90% <span class="tooltip">DCI-P3<span class="tooltiptext">Digital Cinema Initiatives - Protocol 3，電影行業常用的色彩空間標準，比 sRGB 覆蓋更廣的綠色和紅色範圍。</span></span></td></tr>
+                                             <tr><td>亮度 (典型)</td><td>1000nit</td><td>2000nit</td><td>>5000nit</td></tr>
+                                             <tr><td>刷新率 (典型)</td><td>90Hz</td><td>120Hz</td><td>90Hz</td></tr>
+                                             <tr><td>狀態</td><td>量產 (MP)</td><td>量產 (MP)</td><td>樣品 (Sample)</td></tr>
+                                         </tbody>
+                                     </table>
+                                     <p class="text-xs text-gray-500 mt-1">* 來源：京東方英文官網 (中文官網可能更新滯後)</p>
+                                 </div>
+                            </div>
+                         </div>
+                     </div>
+
+                    <!-- Seeya -->
+                     <div class="border-b pb-6">
+                         <h3 class="text-xl font-semibold mb-3 text-blue-700">🇨🇳 Seeya (視涯科技) - 專注 12 吋 MicroOLED</h3>
+                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
+                             <div class="text-sm bg-gray-50 p-3 rounded">
+                                 <p><strong class="font-medium">成立時間：</strong> 2016年10月</p>
+                                 <p><strong class="font-medium">總部位置：</strong> 合肥新站高新區 (保稅區)</p>
+                                 <p><strong class="font-medium">廠房面積：</strong> 一期 > 40,000 平方米</p>
+                                 <p><strong class="font-medium">核心能力：</strong> 專注於 <strong class="text-blue-600">12 吋晶圓</strong> MicroOLED 螢幕生產</p>
+                                 <p><strong class="font-medium">年產能：</strong> 7.2 萬片晶圓/年 (一期)</p>
+                                 <p><strong class="font-medium">定位：</strong> 提供 MicroOLED 顯示器研發、設計、生產、銷售及端到端解決方案。</p>
+                             </div>
+                              <figure class="text-center">
+                                 <img src="https://cdn-mineru.openxlab.org.cn/extract/db2eacda-b623-49a3-8002-6d5df21e7a7a/24d86bef3d3c5370bbd4961a25460d5b27d690b6dff755066625805c81eaed98.jpg" alt="視涯科技合肥工廠">
+                                  <figcaption class="text-xs text-gray-500 mt-1">圖：視涯科技合肥工廠 (示意)</figcaption>
+                             </figure>
+                         </div>
+                         <figure class="text-center grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                             <img src="https://cdn-mineru.openxlab.org.cn/extract/db2eacda-b623-49a3-8002-6d5df21e7a7a/453e5cb6bf5ae1a4abba51089ed4bd5dfdc6e756e493a28a89441c01c9aa8857.jpg" alt="視涯科技產品應用">
+                             <img src="https://cdn-mineru.openxlab.org.cn/extract/db2eacda-b623-49a3-8002-6d5df21e7a7a/3c90da25faa55b87c8b8dc00a1094e1013b560919136e6a199c4af714de31aed.jpg" alt="視涯科技產品應用2">
+                              <figcaption class="sm:col-span-2 text-xs text-gray-500 mt-1">圖：視涯科技 MicroOLED 產品應用場景</figcaption>
+                         </figure>
+                         <div class="collapsible-section mb-4">
+                             <div class="collapsible-header p-3 flex justify-between items-center bg-blue-50">
+                                <h4 class="text-lg font-semibold text-blue-800">視涯科技 <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 產品亮點 ✨</h4>
+                                 <svg class="w-6 h-6 transform transition-transform text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </div>
+                             <div class="collapsible-content p-4 bg-blue-50 rounded-b-lg">
+                                <p class="text-sm mb-3">視涯科技同樣在 2023 年 5 月展示了其高規格的 1.3 吋 <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 面板：</p>
+                                 <figure class="text-center mb-4">
+                                     <img src="https://cdn-mineru.openxlab.org.cn/extract/db2eacda-b623-49a3-8002-6d5df21e7a7a/626987c9422d9adb764f7fac4a159beb8e10fa6d7a33df0a395bfddbd53bf07b.jpg" alt="視涯 1.3吋 4K MicroOLED">
+                                     <figcaption class="text-xs text-gray-500 mt-1">圖：視涯科技 1.3" 4K MicroOLED</figcaption>
+                                 </figure>
+                                <ul class="list-disc pl-5 space-y-1 text-sm">
+                                    <li>解析度：<strong class="font-medium">3552 x 3552</strong></li>
+                                    <li>刷新率：<strong class="font-medium">30-120Hz</strong> 可變刷新率 (<span class="tooltip">VRR<span class="tooltiptext">Variable Refresh Rate (可變刷新率)，顯示器根據內容幀率動態調整刷新率的技術，可減少畫面撕裂和卡頓。</span></span>)</li>
+                                    <li>架構：<strong class="font-medium">Tandem</strong> 雙層串聯</li>
+                                    <li>工藝：採用<strong class="font-medium">微透鏡 (Microlens)</strong> 工藝提升出光效率</li>
+                                    <li>色深：支援 <strong class="font-medium">10 bits</strong></li>
+                                    <li>技術：支援<strong class="font-medium">占空比插黑</strong>技術 (Duty Cycle Black Insertion) 改善動態模糊</li>
+                                    <li>色域：<strong class="font-medium">DCI-P3</strong></li>
+                                    <li>入眼亮度：可達 <strong class="font-medium">4000 nits</strong></li>
+                                </ul>
+                             </div>
+                         </div>
+                    </div>
+
+                     <!-- 清越科技 -->
+                     <div class="border-b pb-6">
+                         <h3 class="text-xl font-semibold mb-3 text-blue-700">🇨🇳 清越科技 (Visionox / Kunshan Govisionox Optoelectronics)</h3>
+                         <p class="text-sm mb-4">維信諾旗下專注於 <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 的公司 (後與夢顯合併)。在 2023 年 5 月展示了 0.39 吋和 0.71 吋的 <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 產品。</p>
+                         <figure class="text-center">
+                             <img src="https://cdn-mineru.openxlab.org.cn/extract/db2eacda-b623-49a3-8002-6d5df21e7a7a/cbc6c2023958df9506b4d44243e0b970b66ebc2043c11acacce201e7bf8cad1e.jpg" alt="清越科技 MicroOLED 產品">
+                             <figcaption class="text-xs text-gray-500 mt-1">圖：清越科技展示的 MicroOLED 產品 (2023/5)</figcaption>
+                         </figure>
+                     </div>
+
+                     <!-- 上海顯耀 (JBD) -->
+                     <div class="border-b pb-6">
+                         <h3 class="text-xl font-semibold mb-3 text-green-700">🇨🇳 上海顯耀 (JBD) - 專注 MicroLED</h3>
+                          <p class="text-sm mb-4">雖然本報告主要關注 <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span>，但上海顯耀 (Jade Bird Display) 在高密度 <span class="tooltip">MicroLED<span class="tooltiptext">Micro-LED (微發光二極體)，由無機材料製成的微米級 LED 陣列，具備高亮度、高對比、長壽命等優點。</span></span> 領域是重要廠商，特別是在單色（尤以綠光為主）高亮度 <span class="tooltip">MicroLED<span class="tooltiptext">Micro-LED (微發光二極體)，由無機材料製成的微米級 LED 陣列，具備高亮度、高對比、長壽命等優點。</span></span> 微顯示器方面技術領先，是 <span class="tooltip">AR<span class="tooltiptext">Augmented Reality (擴增實境)，將數位資訊疊加到真實世界畫面的技術，使用者仍能看到周遭環境。</span></span> 光波導方案的重要供應商。</p>
+                     </div>
+                          <!-- 昀光 (Lumicore) -->
+                    <div class="border-b pb-6">
+                        <h3 class="text-xl font-semibold mb-3 text-green-700">🇨🇳 南京昀光科技 (Lumicore) - 南京</h3>
+                         <p class="text-sm mb-4">南京昀光科技有限公司创立于2019年，由我国硅基微显示器与集成电路行业领军专家季渊博士创立，注册资本15,588万元。公司坐落于南京市江宁开发区，为南京市重点招商引资项目，江苏省高新技术企业。创始团队对硅基微显示技术研究始于2005年，具有深厚学术底蕴和丰富产学研经验。
+
+                            2016年起，公司逐步在全国范围内进行战略布局，在上海、南京等长三角城市设立了研发中心和制造中心，并进一步在华东、华北、华南等区域构建营销中心，形成较为完善的研产销体系。昀光科技新一代场堆叠硅基微显示器解决方案创新性突出、引领性显著、应用效果优越，有效解决近眼显示体验中运动模糊、高刷护眼等实用性问题，为近眼显示的发展提供有力技术支撑。<p>
+                          <figure class="text-center">
+                            <img src="https://s2.loli.net/2025/04/13/Pv7zsUGLxhYHBnu.jpg" alt="昀光 MicroLED SRS5025"> 
+                            <img src="https://s2.loli.net/2025/04/13/av6PUCyXGwugpAW.jpg" alt="昀光 MicroLED SRS5025"> 
+                            <img src="https://cdn-mineru.openxlab.org.cn/extract/db2eacda-b623-49a3-8002-6d5df21e7a7a/5817506e975b1037fe434b5aa8807888df59b71182596961e8db9dae470c499b.jpg" alt="昀光 MicroLED 產品規格">
+                              <figcaption class="text-xs text-gray-500 mt-1">圖：昀光科技 (Lumicore) 部分 MicroOLED 產品規格</figcaption>
+                         </figure>
+                     </div>
+
+                     <!-- 熙泰科技 -->
+                    <div class="border-b pb-6">
+                        <h3 class="text-xl font-semibold mb-3 text-blue-700">🇨🇳 熙泰科技 (Sidtek)</h3>
+                        <p class="text-sm mb-4">熙泰科技也是中國 <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 領域的新興力量。在 2023 年 5 月的 SID 展會上推出了 1.03 吋、2560x2560 解析度、亮度超 2500 nits 的 <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 微顯示螢幕 (<span class="tooltip">MIPI<span class="tooltiptext">Mobile Industry Processor Interface (行動產業處理器介面)，是一個為行動裝置設計的介面標準聯盟，其顯示介面標準 (如 DSI) 常用於連接處理器和顯示器。</span></span> 接口)。同期還展示了 0.49 吋、0.39 吋、0.6 吋等多款產品。</p>
+                        <p class="text-sm mb-4">熙泰表示，正在持續開發更高性能的 0.49 吋、1.2 吋 (4K)、1.42 吋、1.7 吋產品，預計在 2023 下半年至 2024 年陸續亮相。</p>
+                         <figure class="text-center mb-4">
+                             <img src="https://cdn-mineru.openxlab.org.cn/extract/db2eacda-b623-49a3-8002-6d5df21e7a7a/e0f5805eaf6e8171371a4a0e7e25a05a16c2232f5654e2e603c9c61761aa8238.jpg" alt="熙泰科技 MicroOLED 產品">
+                         </figure>
+                        <div class="collapsible-section">
+                             <div class="collapsible-header p-3 flex justify-between items-center bg-blue-50">
+                                <h4 class="text-lg font-semibold text-blue-800">熙泰科技產品清單 (部分)</h4>
+                                 <svg class="w-6 h-6 transform transition-transform text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </div>
+                             <div class="collapsible-content p-4 bg-blue-50 rounded-b-lg">
+                                <div class="table-container text-xs">
+                                    <table>
+                                        <thead><tr><th>項目</th><th>0.39"</th><th>0.6" (SVGA)</th><th>0.6" (XGA)</th><th>0.6" (SXGA)</th><th>0.23"</th><th>0.49"</th><th>1.03"</th></tr></thead>
+                                        <tbody>
+                                            <tr><td>解析度</td><td>1024x768</td><td>800x600</td><td>1024x768</td><td>1280x1024</td><td>640x400</td><td>1920x1080</td><td>2560x2560</td></tr>
+                                            <tr><td>亮度 (典型)</td><td>~1500nit</td><td>~1500nit</td><td>~1500nit</td><td>~1500nit</td><td>目標1500nit</td><td>>2500nit</td><td>>2500nit</td></tr>
+                                            <tr><td>對比度</td><td>≥100k:1</td><td>≥100k:1</td><td>≥100k:1</td><td>≥100k:1</td><td>≥100k:1</td><td>≥100k:1</td><td>≥100k:1</td></tr>
+                                            <!-- CIE xy data omitted for brevity -->
+                                            <tr><td>功耗 (@亮度)</td><td>≤350mW@1500</td><td>~400mW@1500</td><td>≤450mW@1500</td><td>≤480mW@1500</td><td>待定</td><td>~500mW@2500</td><td>≤900mW@2500</td></tr>
+                                            <tr><td>狀態</td><td>量產(MP)</td><td>量產(MP)</td><td>量產(MP)</td><td>量產(MP)</td><td>開發中</td><td>點亮</td><td>點亮</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                             </div>
+                         </div>
+                    </div>
+
+                     <!-- eMagin -->
+                    <div class="border-b pb-6">
+                        <h3 class="text-xl font-semibold mb-3 text-blue-700">🇺🇸 eMagin - 軍工領域領導者</h3>
+                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
+                             <div class="text-sm bg-gray-50 p-3 rounded">
+                                 <p><strong class="font-medium">成立時間：</strong> 1996年</p>
+                                 <p><strong class="font-medium">里程碑：</strong> 2000年即推出微型顯示器與 <span class="tooltip">VR<span class="tooltiptext">Virtual Reality (虛擬實境)，利用電腦技術創造一個模擬環境，讓使用者感覺身歷其境，通常需要配戴頭戴式顯示器。</span></span> 眼鏡，全球最早進入 <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 領域的廠商之一。</p>
+                                 <p><strong class="font-medium">技術優勢：</strong> 低功耗、高對比、色彩鮮豔、體積小、寬溫操作。</p>
+                                  <p><strong class="font-medium">核心能力：</strong> 具備設計、開發、製造、銷售 <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 的端到端能力。</p>
+                                 <p><strong class="font-medium">主要客戶：</strong> 軍工企業 (如美國國防部)。</p>
+                                 <p><strong class="font-medium">近期動態：</strong> 為 F-35 戰機頭盔供應高亮度 <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 螢幕。已被 Samsung Display 收購 (2023)。</p>
+                             </div>
+                              <figure class="text-center">
+                                 <img src="https://cdn-mineru.openxlab.org.cn/extract/db2eacda-b623-49a3-8002-6d5df21e7a7a/2e8669767f89448e46d75395fecc503ddb77eea6ab99dd50f52b41aa059daf2a.jpg" alt="eMagin 公司 Logo">
+                                 <img src="https://cdn-mineru.openxlab.org.cn/extract/db2eacda-b623-49a3-8002-6d5df21e7a7a/87b261b191bf21ee6942c9d3d889cb10b4bfea63949e4e8ca9a0314319ddcdd9.jpg" alt="eMagin 工廠">
+                                  <figcaption class="text-xs text-gray-500 mt-1">圖：eMagin 位於紐約州 Hopewell Junction 的工廠</figcaption>
+                             </figure>
+                         </div>
+                        <div class="collapsible-section">
+                             <div class="collapsible-header p-3 flex justify-between items-center bg-blue-50">
+                                <h4 class="text-lg font-semibold text-blue-800">eMagin <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 產品線 (部分)</h4>
+                                 <svg class="w-6 h-6 transform transition-transform text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </div>
+                             <div class="collapsible-content p-4 bg-blue-50 rounded-b-lg">
+                                 <figure class="mb-4">
+                                     <img src="https://cdn-mineru.openxlab.org.cn/extract/db2eacda-b623-49a3-8002-6d5df21e7a7a/d65f09607c81a0fee4355b709748ee879e92a202de97beb5ee77183b586eb637.jpg" alt="eMagin MicroOLED 產品列表圖">
+                                 </figure>
+                                <div class="table-container text-xs">
+                                    <table>
+                                        <thead><tr><th>名稱</th><th>水平解析度</th><th>垂直解析度</th><th>對角線 (吋)</th><th>總解析度</th><th>長寬比</th><th>像素間距 (μm)</th></tr></thead>
+                                        <tbody>
+                                            <tr><td>VGA</td><td>640</td><td>480</td><td>0.47</td><td>680x520</td><td>1.33</td><td>15</td></tr>
+                                            <tr><td>DSVGA</td><td>800</td><td>600</td><td>0.59</td><td>824x624</td><td>1.33</td><td>15</td></tr>
+                                            <tr><td>SVGA+</td><td>852</td><td>600</td><td>0.62</td><td>852x600</td><td>1.42</td><td>15</td></tr>
+                                            <tr><td>SXGA096</td><td>1280</td><td>1024</td><td>0.62</td><td>1292x1036</td><td>1.25</td><td>9.6</td></tr>
+                                            <tr><td>SXGA120</td><td>1280</td><td>1024</td><td>0.77</td><td>1292x1036</td><td>1.25</td><td>12</td></tr>
+                                            <tr><td>WUXGA</td><td>1900</td><td>1200</td><td>0.85</td><td>1944x1224</td><td>1.58</td><td>9.6</td></tr>
+                                            <tr><td>2K x 2K</td><td>2000</td><td>2000</td><td>1.07</td><td>2072x2072</td><td>1.00</td><td>9.3</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                             </div>
+                         </div>
+                    </div>
+
+                    <!-- Kopin -->
+                     <div class="border-b pb-6">
+                        <h3 class="text-xl font-semibold mb-3 text-blue-700">🇺🇸 Kopin - 微顯示技術老牌廠商</h3>
+                         <p class="text-sm mb-4">Kopin 也是美國微顯示領域的資深企業，產品線涵蓋 <span class="tooltip">LCD<span class="tooltiptext">Liquid Crystal Display (液晶顯示器)，一種成熟的平板顯示技術，需要背光源，成本較低。</span></span>, <span class="tooltip">LCoS<span class="tooltiptext">Liquid Crystal on Silicon (矽基液晶)，一種反射式微顯示技術，將液晶置於矽基 CMOS 電路之上。</span></span> 和 <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span>。其 <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 面板曾被用於松下 (Panasonic) 的 <span class="tooltip">VR<span class="tooltiptext">Virtual Reality (虛擬實境)，利用電腦技術創造一個模擬環境，讓使用者感覺身歷其境，通常需要配戴頭戴式顯示器。</span></span> 眼鏡 (MeganeX)。</p>
+                        <figure class="text-center mb-4">
+                             <img src="https://cdn-mineru.openxlab.org.cn/extract/db2eacda-b623-49a3-8002-6d5df21e7a7a/8f811ae0bf7b0e29b031139e5ad5e86c3d4f01e6a25dad0bb4668f6c71ec6d86.jpg" alt="松下 MeganeX VR 眼鏡">
+                             <figcaption class="text-xs text-gray-500 mt-1">圖：應用 Kopin MicroOLED 面板的松下 MeganeX VR 眼鏡</figcaption>
+                         </figure>
+                        <div class="collapsible-section">
+                             <div class="collapsible-header p-3 flex justify-between items-center bg-blue-50">
+                                <h4 class="text-lg font-semibold text-blue-800">Kopin <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 產品線 (部分)</h4>
+                                 <svg class="w-6 h-6 transform transition-transform text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </div>
+                             <div class="collapsible-content p-4 bg-blue-50 rounded-b-lg">
+                                 <figure class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
+                                     <img src="https://cdn-mineru.openxlab.org.cn/extract/db2eacda-b623-49a3-8002-6d5df21e7a7a/2f923cb055d5a40f6ded49b09e20b5d39814e58b811e53180255e384369c3b9c.jpg" alt="Kopin MicroOLED 產品圖 1">
+                                     <img src="https://cdn-mineru.openxlab.org.cn/extract/db2eacda-b623-49a3-8002-6d5df21e7a7a/df47021cdf8757b225261a6bd010ec7360d4f72088aaab2c6d2269bffcca11a5.jpg" alt="Kopin MicroOLED 產品圖 2">
+                                     <img src="https://cdn-mineru.openxlab.org.cn/extract/db2eacda-b623-49a3-8002-6d5df21e7a7a/5f3bd83e08338d24ea9575a06c7bac9f1c01ef0942392e0eb3182dff3fb2e8d5.jpg" alt="Kopin MicroOLED 產品圖 3">
+                                 </figure>
+                                <div class="table-container text-xs">
+                                    <table>
+                                        <thead><tr><th>產品尺寸 (吋)</th><th>解析度</th><th>像素尺寸 (μm)</th><th>刷新率</th></tr></thead>
+                                        <tbody>
+                                            <tr><td>1.3"</td><td>2560 x 2560</td><td>2.88 x 8.64</td><td>120Hz</td></tr>
+                                            <tr><td>0.99"</td><td>2048 x 2048</td><td>2.88 x 8.64</td><td>120Hz</td></tr>
+                                            <tr><td>0.49"</td><td>1280 x 720</td><td>2.79 x 8.37</td><td>120Hz</td></tr>
+                                            <!-- Other sizes omitted -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                             </div>
+                         </div>
+                    </div>
+
+                    <!-- Fraunhofer FEP -->
+                     <div class="border-b pb-6">
+                        <h3 class="text-xl font-semibold mb-3 text-blue-700">🇩🇪 Fraunhofer FEP - 研究機構先鋒</h3>
+                         <p class="text-sm mb-4">德國弗勞恩霍夫有機電子、電子束和電漿技術研究所 (Fraunhofer FEP) 在 <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 領域擁有深厚的研究實力。在 2023 年 5 月，該研究所宣布開發出當時全球像素密度最高的 <span class="tooltip">OLED<span class="tooltiptext">Organic Light Emitting Diode (有機發光二極體)，一種自發光顯示技術，色彩鮮豔、對比度高，常用於手機和電視。</span></span> 微顯示器，<span class="tooltip">PPI<span class="tooltiptext">Pixels Per Inch (每英寸像素數)，衡量顯示器物理像素密度的指標，PPI 越高代表螢幕越精細。</span></span> 高達 <strong class="text-red-600 font-semibold">10,000</strong>！</p>
+                         <p class="text-sm mb-4">他們展示的是一款 0.18 吋、1440x1080 解析度的單色 <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span>，像素尺寸僅為 <strong class="font-medium">2.5 微米</strong>。這展示了 <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 技術在追求極致解析度上的巨大潛力。</p>
+                         <figure class="text-center grid grid-cols-1 sm:grid-cols-2 gap-4">
+                             <img src="https://cdn-mineru.openxlab.org.cn/extract/db2eacda-b623-49a3-8002-6d5df21e7a7a/0988ca8dfdd4f5e3266483dca6751ebe92b29ae78e9d8871766c6ab1505da09d.jpg" alt="Fraunhofer 10000 PPI MicroOLED 圖 1">
+                             <img src="https://cdn-mineru.openxlab.org.cn/extract/db2eacda-b623-49a3-8002-6d5df21e7a7a/cb5b86acd361395d9e93203ffe78f8b21641fc51bbee450a3320774fe43622b3.jpg" alt="Fraunhofer 10000 PPI MicroOLED 圖 2">
+                             <figcaption class="sm:col-span-2 text-xs text-gray-500 mt-1">圖：Fraunhofer FEP 展示的 10,000 PPI MicroOLED 微顯示器 (2023/5)</figcaption>
+                         </figure>
+                    </div>
+
+                    <!-- LG Display -->
+                    <div class="border-b pb-6">
+                        <h3 class="text-xl font-semibold mb-3 text-blue-700">🇰🇷 LG Display (LGD) - 潛在的蘋果供應商</h3>
+                        <p class="text-sm mb-4">全球顯示面板巨頭 LGD 也在積極佈局 <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 技術。他們曾在 SID 2021 上展示過 0.42 吋、1280x720 的 <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 樣品。根據韓國媒體報導，LGD 有望在 2024 年或之後進入 Apple 的 <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 供應鏈，成為 Sony 之外的第二供應商。</p>
+                        <figure class="text-center">
+                            <img src="https://cdn-mineru.openxlab.org.cn/extract/db2eacda-b623-49a3-8002-6d5df21e7a7a/2cadf32b518509f61d9ba3d4868ba1e689a521ff819f9c4c1ae764b1cb21fcc9.jpg" alt="LG Display MicroOLED 樣品">
+                             <figcaption class="text-xs text-gray-500 mt-1">圖：LG Display 展示的 MicroOLED 樣品 (SID 2021)</figcaption>
+                        </figure>
+                    </div>
+
+                    <!-- Samsung Display -->
+                    <div class="border-b pb-6">
+                        <h3 class="text-xl font-semibold mb-3 text-blue-700">🇰🇷 Samsung Display (SDC) - 加速追趕，收購 eMagin</h3>
+                        <p class="text-sm mb-4">另一家韓國面板巨頭三星顯示 (SDC) 雖然在 <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 領域起步較晚，但正加速追趕。根據媒體報導，三星計畫在 2024 年建立 <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 量產線，並可能從傳統的 <span class="tooltip">W-OLED<span class="tooltiptext">White OLED (白光 OLED)，一種 OLED 技術，先發出白光，再通過彩色濾光片產生紅、綠、藍三色。</span></span> 技術路線轉向直接 <span class="tooltip">RGB<span class="tooltiptext">Red, Green, Blue (紅、綠、藍)，指像素由獨立的紅、綠、藍子像素直接發光組成，無需彩色濾光片，理論上效率和色彩更好。</span></span> <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span>。2023 年，三星斥資 2.18 億美元收購了美國軍工 <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 廠商 eMagin，顯示其在該領域佈局的決心。</p>
+                        <p class="text-sm mb-4">三星的加入預計將帶動相關供應鏈廠商的發展，例如 APS Holdings (<span class="tooltip">FMM<span class="tooltiptext">Fine Metal Mask (精細金屬掩模版)，在 OLED 蒸鍍製程中使用的帶有微小開孔的金屬薄板，用於精確圖案化有機材料。</span></span>)、AP System (沉積與封裝設備)、Sunic System (沉積設備) 和 Innox Advanced Materials (製程材料) 等。</p>
+                         <figure class="text-center">
+                             <img src="https://cdn-mineru.openxlab.org.cn/extract/db2eacda-b623-49a3-8002-6d5df21e7a7a/13c7c1ce6a30354b7cb4f47e2ef8b9fc9dd0fc0bd7d7003da2d6fed1191febc7.jpg" alt="三星 Display Logo">
+                         </figure>
+                    </div>
+
+                    <!-- 華興源創 -->
+                    <div class="border-b pb-6">
+                        <h3 class="text-xl font-semibold mb-3 text-blue-700">🇨🇳 華興源創 (GHU) - 檢測設備領先者</h3>
+                        <p class="text-sm mb-4">蘇州華興源創科技股份有限公司成立於 2005 年，是平板顯示、半導體及可穿戴產品領域領先的檢測與組裝設備供應商，客戶包括 Apple, BOE, 立訊, LG 等。該公司在 <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 檢測領域佈局深入，是 Apple Vision Pro <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 螢幕檢測和修復設備的主要供應商 (供貨給 Sony)。</p>
+                         <figure class="text-center mb-4">
+                             <img src="https://cdn-mineru.openxlab.org.cn/extract/db2eacda-b623-49a3-8002-6d5df21e7a7a/697fe4c2218ca90981c9b38d788e00e6121466946170b1e88ee449ad670b3924.jpg" alt="華興源創 Logo">
+                         </figure>
+                         <div class="collapsible-section mb-4">
+                             <div class="collapsible-header p-3 flex justify-between items-center bg-blue-50">
+                                <h4 class="text-lg font-semibold text-blue-800">華興源創 <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 相關技術與產品 🛠️</h4>
+                                 <svg class="w-6 h-6 transform transition-transform text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </div>
+                             <div class="collapsible-content p-4 bg-blue-50 rounded-b-lg">
+                                <p class="text-sm mb-3">華興源創在 <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 檢測方面掌握多項關鍵技術：</p>
+                                <div class="table-container mb-4 text-xs">
+                                    <table>
+                                         <thead><tr><th>技術名稱</th><th>技術簡介</th></tr></thead>
+                                         <tbody>
+                                             <tr><td>新型微顯示光學特性及缺陷檢測</td><td>針對 MicroLED/OLED 近眼顯示器的超高解析度特性，開發專用檢測鏡頭。</td></tr>
+                                             <tr><td>高精度壓接技術</td><td>基於高解析、小體積特點，開發高精度壓接系統，可實現 355 根探針與 35μm 測試點的同步壓接 (間距 70μm)。</td></tr>
+                                             <tr><td>高速信號多級轉接傳輸</td><td>研製 POGO Pin 轉 Blade Pin 的多級轉接設備，穩定傳輸 6Gbps x 6Lane 的高速檢測信號。</td></tr>
+                                             <tr><td>高精度控溫技術</td><td>採用半導體控溫，實現 ±0.5°C 精確控溫 (10°C~60°C)，消除自發熱對 Gamma/Demura 檢測影響，保證指標精確性。</td></tr>
+                                             <tr><td>TP 劃傷 <span class="tooltip">AI<span class="tooltiptext">Artificial Intelligence (人工智慧)，使電腦系統能夠執行通常需要人類智慧的任務，例如視覺感知、語音辨識、決策和語言翻譯。</span></span> 檢測技術</td><td>利用機器學習和 <span class="tooltip">GPU<span class="tooltiptext">Graphics Processing Unit (圖形處理器)，最初設計用於加速圖形渲染，現已廣泛應用於平行運算、機器學習等領域。</span></span> 加速，智能檢測因雷射切割造成的 TP (觸控面板或保護層) 邊緣劃傷。</td></tr>
+                                         </tbody>
+                                     </table>
+                                </div>
+                                 <figure class="text-center">
+                                     <img src="https://cdn-mineru.openxlab.org.cn/extract/db2eacda-b623-49a3-8002-6d5df21e7a7a/a52d0c80967a0cdd9084c29070bfe46330fe7623e7124a29b82d901b68f21879.jpg" alt="華興源創 MicroOLED 檢測設備">
+                                      <figcaption class="text-xs text-gray-500 mt-1">圖：華興源創 MicroOLED 相關檢測產品 (示意)</figcaption>
+                                 </figure>
+                            </div>
+                         </div>
+                    </div>
+
+                    <!-- 北方華創 -->
+                     <div class="border-b pb-6">
+                        <h3 class="text-xl font-semibold mb-3 text-blue-700">🇨🇳 北方華創 (NAURA) - 半導體設備龍頭</h3>
+                         <p class="text-sm mb-4">作為中國領先的半導體和泛半導體設備製造商，北方華創也為 <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 產業鏈提供關鍵製程設備，例如物理氣相沉積 (<span class="tooltip">PVD<span class="tooltiptext">Physical Vapor Deposition (物理氣相沉積)，一種薄膜沉積技術，在高真空下將材料源汽化或濺射，然後沉積到基板上。</span></span>)、化學氣相沉積 (<span class="tooltip">CVD<span class="tooltiptext">Chemical Vapor Deposition (化學氣相沉積)，一種利用氣態前驅物在基板表面發生化學反應來生成固態薄膜的技術。</span></span>) 等設備。</p>
+                        <figure class="text-center">
+                             <img src="https://cdn-mineru.openxlab.org.cn/extract/db2eacda-b623-49a3-8002-6d5df21e7a7a/570abe03652b3458c5a30dac434edae54cf084711b2f9d759b1ac56749520264.jpg" alt="北方華創 Logo 或設備圖">
+                              <figcaption class="text-xs text-gray-500 mt-1">圖：北方華創相關設備 (示意)</figcaption>
+                         </figure>
+                    </div>
+
+                    <!-- 供應鏈總結 -->
+                     <div>
+                        <h3 class="text-xl font-semibold mb-3 text-purple-700">重點產品供應鏈關係 (示例) 🔗</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                             <div class="bg-gray-50 p-4 rounded-lg border">
+                                <h4 class="font-semibold text-gray-800 mb-2">Apple Vision Pro (1代/2代預測)</h4>
+                                <ul class="list-disc pl-5 space-y-1 text-sm">
+                                    <li><strong class="font-medium">背板代工：</strong> <span class="text-blue-600">台積電 (TSMC)</span></li>
+                                    <li><strong class="font-medium"><span class="tooltip">OLED<span class="tooltiptext">Organic Light Emitting Diode (有機發光二極體)，一種自發光顯示技術，色彩鮮豔、對比度高，常用於手機和電視。</span></span> 蒸鍍：</strong> <span class="text-blue-600">Sony</span> (主供), <span class="text-gray-500">LG Display</span> (潛在二供)</li>
+                                    <li><strong class="font-medium">檢測/修復設備：</strong> <span class="text-blue-600">華興源創</span> (供 Sony)</li>
+                                    <li><strong class="font-medium">整機組裝：</strong> <span class="text-blue-600">立訊精密 (Luxshare)</span></li>
+                                     <li><strong class="font-medium">其他潛在面板供應商：</strong> <span class="text-gray-500">視涯 (Seeya)</span></li>
+                                </ul>
+                                 <figure class="mt-4">
+                                     <img src="https://cdn-mineru.openxlab.org.cn/extract/db2eacda-b623-49a3-8002-6d5df21e7a7a/13693552cc13ad5295a37664f44bff8ec672e731329310622206bfa597099bcf.jpg" alt="Apple Vision Pro 供應鏈圖">
+                                     <figcaption class="text-xs text-gray-500 mt-1">圖：Apple Vision Pro 螢幕面板供應鏈 (示意)</figcaption>
+                                 </figure>
+                            </div>
+                             <div class="bg-gray-50 p-4 rounded-lg border">
+                                <h4 class="font-semibold text-gray-800 mb-2">Rokid Air / Max</h4>
+                                <p class="text-sm mb-3">Rokid 眼鏡採用 Birdbath 光學方案搭配 <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 螢幕，在消費級市場取得了成功，帶動了一批類似方案的 <span class="tooltip">AR<span class="tooltiptext">Augmented Reality (擴增實境)，將數位資訊疊加到真實世界畫面的技術，使用者仍能看到周遭環境。</span></span> 眼鏡問世。</p>
+                                 <!-- Rokid供應鏈資訊不夠詳細，僅展示產品圖 -->
+                                 <figure class="mt-4">
+                                     <img src="https://cdn-mineru.openxlab.org.cn/extract/db2eacda-b623-49a3-8002-6d5df21e7a7a/5f451d971c67d4fc4738c50f46f200954f94ef8953b13bb022d53f4eac126cda.jpg" alt="Rokid Air 供應鏈示意圖">
+                                     <figcaption class="text-xs text-gray-500 mt-1">圖：Rokid AR 眼鏡螢幕面板供應鏈 (示意)</figcaption>
+                                 </figure>
+                                <p class="text-sm mt-3">Rokid 的 <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 螢幕品質在其後續產品中持續升級。</p>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+            </section>
+
+             <!-- 八、總結 -->
+             <section id="conclusion" class="bg-gradient-to-r from-green-50 to-teal-50 rounded-lg shadow p-6">
+                 <h2 class="text-2xl font-semibold text-gray-700 mb-6 border-l-4 border-green-600 pl-4">七、總結與展望 🎯</h2>
+
+                 <div class="space-y-6 text-base">
+                     <p><span class="font-semibold text-green-700">視覺體驗是核心驅動力：</span> 視覺是牽引 <span class="tooltip">AR<span class="tooltiptext">Augmented Reality (擴增實境)，將數位資訊疊加到真實世界畫面的技術，使用者仍能看到周遭環境。</span></span>/<span class="tooltip">VR<span class="tooltiptext">Virtual Reality (虛擬實境)，利用電腦技術創造一個模擬環境，讓使用者感覺身歷其境，通常需要配戴頭戴式顯示器。</span></span> 產品升級的核心需求，而螢幕技術則是推動產業發展的關鍵引擎。</p>
+
+                     <p><span class="font-semibold text-green-700"><span class="tooltip">AR<span class="tooltiptext">Augmented Reality (擴增實境)，將數位資訊疊加到真實世界畫面的技術，使用者仍能看到周遭環境。</span></span> 技術路徑分化：</span> 傳統的「LCoS/LBS/DLP + 光波導」方案在高成本和低光效方面遇到瓶頸，難以滿足消費級需求。高密度全彩 <span class="tooltip">MicroLED<span class="tooltiptext">Micro-LED (微發光二極體)，由無機材料製成的微米級 LED 陣列，具備高亮度、高對比、長壽命等優點。</span></span> 被寄予厚望，但預計 2026 年後才能成熟商用。在此期間，<span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 在觀影類 <span class="tooltip">AR<span class="tooltiptext">Augmented Reality (擴增實境)，將數位資訊疊加到真實世界畫面的技術，使用者仍能看到周遭環境。</span></span> 和部分輕量級 <span class="tooltip">AR<span class="tooltiptext">Augmented Reality (擴增實境)，將數位資訊疊加到真實世界畫面的技術，使用者仍能看到周遭環境。</span></span> 中扮演重要角色。</p>
+
+                     <p><span class="font-semibold text-green-700"><span class="tooltip">VR<span class="tooltiptext">Virtual Reality (虛擬實境)，利用電腦技術創造一個模擬環境，讓使用者感覺身歷其境，通常需要配戴頭戴式顯示器。</span></span> 迎來 <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 升級潮：</span> Apple Vision Pro 的標竿效應，將加速 <span class="tooltip">VR<span class="tooltiptext">Virtual Reality (虛擬實境)，利用電腦技術創造一個模擬環境，讓使用者感覺身歷其境，通常需要配戴頭戴式顯示器。</span></span> 產業從 <span class="tooltip">LCD<span class="tooltiptext">Liquid Crystal Display (液晶顯示器)，一種成熟的平板顯示技術，需要背光源，成本較低。</span></span>/<span class="tooltip">OLED<span class="tooltiptext">Organic Light Emitting Diode (有機發光二極體)，一種自發光顯示技術，色彩鮮豔、對比度高，常用於手機和電視。</span></span> 向高階 <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 升級，<span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 將成為未來幾年 <span class="tooltip">VR<span class="tooltiptext">Virtual Reality (虛擬實境)，利用電腦技術創造一個模擬環境，讓使用者感覺身歷其境，通常需要配戴頭戴式顯示器。</span></span> 行業的關鍵升級主線。</p>
+
+                     <p><span class="font-semibold text-green-700">中國供應鏈崛起：</span> 在 <span class="tooltip">MicroOLED<span class="tooltiptext">Micro-OLED (微型有機發光二極體) 是一種在矽基板 (Silicon Substrate) 上製造的超高解析度自發光顯示技術，像素密度極高，適合 AR/VR 等近眼顯示應用。</span></span> 螢幕面板的製造、檢測及相關設備、整機整合等環節，中國廠商已躋身全球第一梯隊。以<strong class="font-medium">京東方、視涯、昀光 (MicroLED)、熙泰、華興源創、北方華創</strong> 等面板與設備商，以及 <strong class="font-medium">立訊精密、歌爾股份、舜宇光學</strong> 等組裝與光學元件廠為代表的中國公司，正成為全球 <span class="tooltip">AR<span class="tooltiptext">Augmented Reality (擴增實境)，將數位資訊疊加到真實世界畫面的技術，使用者仍能看到周遭環境。</span></span>/<span class="tooltip">VR<span class="tooltiptext">Virtual Reality (虛擬實境)，利用電腦技術創造一個模擬環境，讓使用者感覺身歷其境，通常需要配戴頭戴式顯示器。</span></span> 產業發展不可或缺的重要力量。🇨🇳💪</p>
+                 </div>
+
+                  <div class="mt-8 pt-6 border-t border-green-200 text-xs text-gray-500">
+            &copy; 2024 MicroOLED AR/VR 洞察報告（參考資料來源： AR圈）
+        </div>
+    </footer>
+
+    <script>
+        // JavaScript for Collapsible Sections
+        document.addEventListener('DOMContentLoaded', function () {
+            const headers = document.querySelectorAll('.collapsible-header');
+
+            headers.forEach(header => {
+                header.addEventListener('click', function () {
+                    const content = this.nextElementSibling;
+                    const svgIcon = this.querySelector('svg');
+
+                    if (content.style.maxHeight && content.style.maxHeight !== '0px') {
+                        // Collapse
+                        content.style.maxHeight = '0px';
+                        content.style.paddingTop = '0';
+                        content.style.paddingBottom = '0';
+                        content.classList.remove('active');
+                        if (svgIcon) {
+                           svgIcon.style.transform = 'rotate(0deg)';
+                        }
+
+                    } else {
+                        // Expand: First collapse any other potentially open sections *within the same direct parent* (optional, depends on desired accordion behavior)
+                        // const parent = this.closest('.collapsible-section')?.parentNode;
+                        // if(parent){
+                        //     parent.querySelectorAll('.collapsible-content.active').forEach(openContent => {
+                        //         if(openContent !== content){
+                        //              openContent.style.maxHeight = '0px';
+                        //              openContent.style.paddingTop = '0';
+                        //              openContent.style.paddingBottom = '0';
+                        //              openContent.classList.remove('active');
+                        //              const otherIcon = openContent.previousElementSibling.querySelector('svg');
+                        //              if(otherIcon) otherIcon.style.transform = 'rotate(0deg)';
+                        //         }
+                        //     });
+                        // }
+
+                        // Expand the current section
+                        content.style.maxHeight = content.scrollHeight + "px"; // Set max-height based on content
+                         content.style.paddingTop = '1rem'; // Corresponds to p-4 top
+                         content.style.paddingBottom = '1rem'; // Corresponds to p-4 bottom
+                        content.classList.add('active');
+                         if (svgIcon) {
+                            svgIcon.style.transform = 'rotate(180deg)';
+                         }
+                    }
+                });
+
+                 // Add transition listener to adjust max-height after expansion if content changes dynamically (rarely needed for static content)
+                 const content = header.nextElementSibling;
+                 if (content) {
+                     content.addEventListener('transitionend', () => {
+                         if (content.classList.contains('active') && content.style.maxHeight !== '0px') {
+                             // If content size might change after initial load, uncomment the next line
+                             // content.style.maxHeight = content.scrollHeight + "px";
+                         }
+                     });
+                 }
+            });
+
+             // Optional: Auto-expand the first few sections if desired
+             // const sectionsToExpand = document.querySelectorAll('.collapsible-section:nth-child(-n+2) .collapsible-header'); // Expand first 2 sections
+             // sectionsToExpand.forEach(header => header.click());
+              // Or expand specific sections by ID
+              const tocHeader = document.querySelector('#version-history .collapsible-header');
+              if(tocHeader) tocHeader.click(); // Auto-expand version history
+
+        });
+    </script>
+</body>
+</html>
+
+
